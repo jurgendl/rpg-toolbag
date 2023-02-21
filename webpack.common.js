@@ -15,7 +15,7 @@ module.exports = {
     usedExports: true
   },
   output: {
-	filename: "bundle.js",
+	filename: "dice-roller-bundle.js",
     //filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist')
   },
@@ -57,13 +57,13 @@ module.exports = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       //filename: '[name].[contenthash].css',
-		filename: 'bundle.css',
+		filename: 'dice-roller-bundle.css',
       chunkFilename: '[id].css'
     }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      filename: 'index.html'
+      template: './src/dice-roller.html',
+      filename: 'dice-roller.html'
     }),
     new ForkTsCheckerWebpackPlugin(),
     new CopyPlugin({
