@@ -247,7 +247,7 @@ export class Component {
 			document.getElementById("saveFormulaResult")?.addEventListener("click", (event: MouseEvent) => {
 				this.saveFormulaResult();
 			});
-			document.getElementById("rollRandomAccurate")?.addEventListener("click", (event: MouseEvent) => {
+			document.getElementById("ACCURATE_ROLL")?.addEventListener("click", (event: MouseEvent) => {
 				this.rollRandomAccurate(10, 'i10');
 			});
 			$("[rollRandom]").click((event: JQuery.Event) => {
