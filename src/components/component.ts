@@ -240,6 +240,27 @@ export class Component {
 			}
 			console.log("test " + (ttt / 10000));
 		}
+		{
+			document.getElementById("rollRandom100")?.addEventListener("click", (event: MouseEvent) => {
+				this.rollRandom100(event);
+			});
+			document.getElementById("saveFormulaResult")?.addEventListener("click", (event: MouseEvent) => {
+				this.saveFormulaResult();
+			});
+			document.getElementById("rollRandomAccurate")?.addEventListener("click", (event: MouseEvent) => {
+				this.rollRandomAccurate(10, 'i10');
+			});
+			$("[rollRandom]").click((event: JQuery.Event) => {
+				console.log(event);
+				console.log((event as any).target);
+				const max: string | null = (event as any).target.getAttribute("rollRandom");
+				console.log(max);
+				console.log((event as any).originalEvent);
+				if (max) {
+					this.rollRandom((event as any).originalEvent, Number(max), 'i' + max);
+				}
+			});
+		}
 	}
 
 	saveSkill() {
@@ -268,7 +289,7 @@ export class Component {
 		}
 	}
 
-	string_as_unicode_escape(input: string) {
+	/*string_as_unicode_escape(input: string) {
 		function pad_four(iinput: string) {
 			const l = iinput.length;
 			if (l == 0) return "0000";
@@ -281,7 +302,7 @@ export class Component {
 		let output = "";
 		for (let i = 0, l = input.length; i < l; i++) output += "\\u" + pad_four(input.charCodeAt(i).toString(16));
 		return output;
-	}
+	}*/
 
 	saveFormulaResult() {
 		$("#SKILL").val($("#FORMULA_RESULT").text());
@@ -592,6 +613,7 @@ export class Component {
 	}
 
 	getNavigatorLanguages() {
-		return navigator.language;
+		console.log(navigator.language);
+		return navigator.language.split("-");
 	}
 }
