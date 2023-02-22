@@ -1,12 +1,58 @@
-export class Component {
-	SUCCESSTEXT = "SUCCESS";
-	FAILTEXT = "FAIL";
+// npm i --save-dev bootstrap-confirmation2
+// https://www.npmjs.com/package/bootstrap-confirmation2
+
+export class RpgData {
 	SUM_LIST: number[] = [];
 	D_LIST: number[] = [];
+	DATA: object = {};
+	historyLines: string[] = [];
+
+	save() {
+		localStorage.setItem("rggdata", JSON.stringify(this));
+		console.log("RpgData.save: " + JSON.stringify(this));
+	}
+}
+
+const rpgData = new RpgData();
+const SUCCESSTEXT = "SUCCESS";
+const FAILTEXT = "FAIL";
+
+export class Component {
+	window_localStorage_getItem(key: string): string | null {
+		const v1 = (rpgData.DATA as any)[key];
+		//const v2 = window.localStorage.getItem(key);
+		//console.log("window_localStorage_getItem: " + key + " v1:" + v1 + " v2:" + v2);
+		//return v2;
+		return v1;
+	}
+
+	window_localStorage_setItem(key: string, value: string): void {
+		(rpgData.DATA as any)[key] = value;
+		rpgData.save()
+		//window.localStorage.setItem(key, value);
+		//console.log("window_localStorage_setItem: " + key + " v1:" + value + " json:" + JSON.stringify(rpgData.DATA));
+	}
 
 	init(): void {
 		{
-			const MINIMUM: string | null = window.localStorage.getItem("MINIMUM");
+			const rggdata1: string | null = localStorage.getItem("rggdata");
+			if (rggdata1) {
+				console.log("RpgData.init: " + rggdata1);
+				const rggdata2 = JSON.parse(rggdata1);
+				rpgData.SUM_LIST = rggdata2.SUM_LIST;
+				rpgData.D_LIST = rggdata2.D_LIST;
+				rpgData.DATA = rggdata2.DATA;
+				rpgData.historyLines = rggdata2.historyLines;
+				if (rpgData.historyLines.length > 0) {
+					$("#LAST_HISTORY").html(rpgData.historyLines[rpgData.historyLines.length - 1]);
+					rpgData.historyLines.forEach((historyLine: string) => {
+						$("#FULL_HISTORY").prepend("<li class='list-group-item' data-type='array-item'>" + historyLine + "</li>");
+					});
+				}
+			}
+		}
+		{
+			const MINIMUM: string | null = this.window_localStorage_getItem("MINIMUM");
 			if (MINIMUM != null && (+MINIMUM) > 0) {
 				$("#MINIMUM").val(MINIMUM);
 				$("#MINIMUM").attr('data-slider-value', MINIMUM);
@@ -18,7 +64,7 @@ export class Component {
 			});
 		}
 		{
-			const FLAT: string | null = window.localStorage.getItem("FLAT");
+			const FLAT: string | null = this.window_localStorage_getItem("FLAT");
 			if (FLAT != null && (+FLAT) > 0) {
 				$("#FLAT").val(FLAT);
 				$("#FLAT").attr('data-slider-value', FLAT);
@@ -30,14 +76,14 @@ export class Component {
 			});
 		}
 		{
-			const SKILL: string | null = window.localStorage.getItem("SKILL");
+			const SKILL: string | null = this.window_localStorage_getItem("SKILL");
 			if (SKILL != null) {
 				(<HTMLInputElement>document.getElementById("SKILL")).value = SKILL;
 				console.log("restoreSkill:" + SKILL);
 			}
 		}
 		{
-			const TABSVIEW: string | null = window.localStorage.getItem("TABSVIEW");
+			const TABSVIEW: string | null = this.window_localStorage_getItem("TABSVIEW");
 			if (TABSVIEW != null && TABSVIEW == "true") {
 				console.log("restore TABSVIEW: TRUE");
 				$("#TABSVIEW").prop("checked", true);
@@ -49,7 +95,7 @@ export class Component {
 			}
 		}
 		{
-			const W40MODE: string | null = window.localStorage.getItem("W40MODE");
+			const W40MODE: string | null = this.window_localStorage_getItem("W40MODE");
 			if (W40MODE != null && W40MODE == "true") {
 				$("#W40MODE").prop("checked", true);
 				$("#TABSVIEW_PARENT").addClass("w40kmode");
@@ -59,7 +105,7 @@ export class Component {
 			}
 		}
 		{
-			const SUM: string | null = window.localStorage.getItem("SUM");
+			const SUM: string | null = this.window_localStorage_getItem("SUM");
 			if (SUM != null && SUM == "true") {
 				$("#SUM").prop("checked", true);
 			} else {
@@ -67,7 +113,7 @@ export class Component {
 			}
 		}
 		{
-			const DEGREESV_MIN: string | null = window.localStorage.getItem("DEGREESV_MIN");
+			const DEGREESV_MIN: string | null = this.window_localStorage_getItem("DEGREESV_MIN");
 			if (DEGREESV_MIN != null && DEGREESV_MIN == "true") {
 				$("#DEGREESV_MIN").prop("checked", true);
 			} else {
@@ -75,7 +121,7 @@ export class Component {
 			}
 		}
 		{
-			const REROLLLOWEST: string | null = window.localStorage.getItem("REROLLLOWEST");
+			const REROLLLOWEST: string | null = this.window_localStorage_getItem("REROLLLOWEST");
 			if (REROLLLOWEST != null && REROLLLOWEST == "true") {
 				$("#REROLLLOWEST").prop("checked", true);
 			} else {
@@ -83,7 +129,7 @@ export class Component {
 			}
 		}
 		{
-			const SHOWFORMULA: string | null = window.localStorage.getItem("SHOWFORMULA");
+			const SHOWFORMULA: string | null = this.window_localStorage_getItem("SHOWFORMULA");
 			if (SHOWFORMULA != null && SHOWFORMULA == "true") {
 				$("#SHOWFORMULA").prop("checked", true);
 				$("#FORMULAPARENT").css({
@@ -97,7 +143,7 @@ export class Component {
 			}
 		}
 		{
-			const LASMASTERY: string | null = window.localStorage.getItem("LASMASTERY");
+			const LASMASTERY: string | null = this.window_localStorage_getItem("LASMASTERY");
 			if (LASMASTERY != null && LASMASTERY == "true") {
 				$("#LASMASTERY").prop("checked", true);
 			} else {
@@ -105,9 +151,9 @@ export class Component {
 			}
 		}
 		{
-			$("#SHOWFORMULA").change((ev) => {
-				window.localStorage.setItem("SHOWFORMULA", $("#SHOWFORMULA").prop("checked") ? "true" : "false");
-				const SHOWFORMULA: string | null = window.localStorage.getItem("SHOWFORMULA");
+			$("#SHOWFORMULA").change((ev: JQuery.Event) => {
+				this.window_localStorage_setItem("SHOWFORMULA", $("#SHOWFORMULA").prop("checked") ? "true" : "false");
+				const SHOWFORMULA: string | null = this.window_localStorage_getItem("SHOWFORMULA");
 				if ($("#SHOWFORMULA").prop("checked")) {
 					console.log("set SHOWFORMULA: TRUE");
 					$("#FORMULAPARENT").css({
@@ -122,54 +168,54 @@ export class Component {
 			});
 		}
 		{
-			$("#FLAT").change((ev) => {
+			$("#FLAT").change((ev: JQuery.Event) => {
 				const FLAT_FIELD: JQuery<HTMLInputElement> = $("#FLAT");
 				const FLAT_FIELD_VAL = FLAT_FIELD.val();
 				if (FLAT_FIELD_VAL) {
-					window.localStorage.setItem("FLAT", FLAT_FIELD_VAL.toString());
+					this.window_localStorage_setItem("FLAT", FLAT_FIELD_VAL.toString());
 				}
-				const FLAT: string | null = window.localStorage.getItem("FLAT");
+				const FLAT: string | null = this.window_localStorage_getItem("FLAT");
 				console.log("set FLAT:" + FLAT);
 			});
-			$("#MINIMUM").change((ev) => {
+			$("#MINIMUM").change((ev: JQuery.Event) => {
 				const MINIMUM_FIELD: JQuery<HTMLInputElement> = $("#MINIMUM");
 				const MINIMUM_FIELD_VAL = MINIMUM_FIELD.val();
 				if (MINIMUM_FIELD_VAL) {
-					window.localStorage.setItem("MINIMUM", MINIMUM_FIELD_VAL.toString());
+					this.window_localStorage_setItem("MINIMUM", MINIMUM_FIELD_VAL.toString());
 				}
-				const MINIMUM: string | null = window.localStorage.getItem("MINIMUM");
+				const MINIMUM: string | null = this.window_localStorage_getItem("MINIMUM");
 				console.log("set MINIMUM:" + MINIMUM);
 			});
-			$("#REROLLLOWEST").change((ev) => {
-				window.localStorage.setItem("REROLLLOWEST", $("#REROLLLOWEST").prop("checked") ? "true" : "false");
-				const REROLLLOWEST: string | null = window.localStorage.getItem("REROLLLOWEST");
+			$("#REROLLLOWEST").change((ev: JQuery.Event) => {
+				this.window_localStorage_setItem("REROLLLOWEST", $("#REROLLLOWEST").prop("checked") ? "true" : "false");
+				const REROLLLOWEST: string | null = this.window_localStorage_getItem("REROLLLOWEST");
 				console.log("set REROLLLOWEST:" + REROLLLOWEST);
 			});
-			$("#LASMASTERY").change((ev) => {
-				window.localStorage.setItem("LASMASTERY", $("#LASMASTERY").prop("checked") ? "true" : "false");
-				const LASMASTERY: string | null = window.localStorage.getItem("LASMASTERY");
+			$("#LASMASTERY").change((ev: JQuery.Event) => {
+				this.window_localStorage_setItem("LASMASTERY", $("#LASMASTERY").prop("checked") ? "true" : "false");
+				const LASMASTERY: string | null = this.window_localStorage_getItem("LASMASTERY");
 				console.log("set LASMASTERY:" + LASMASTERY);
 			});
-			$("#SUM").change((ev) => {
-				window.localStorage.setItem("SUM", $("#SUM").prop("checked") ? "true" : "false");
-				const SUM: string | null = window.localStorage.getItem("SUM");
+			$("#SUM").change((ev: JQuery.Event) => {
+				this.window_localStorage_setItem("SUM", $("#SUM").prop("checked") ? "true" : "false");
+				const SUM: string | null = this.window_localStorage_getItem("SUM");
 				console.log("set SUM:" + SUM);
 			});
-			$("#DEGREESV_MIN").change((ev) => {
-				window.localStorage.setItem("DEGREESV_MIN", $("#DEGREESV_MIN").prop("checked") ? "true" : "false");
-				const DEGREESV_MIN: string | null = window.localStorage.getItem("DEGREESV_MIN");
+			$("#DEGREESV_MIN").change((ev: JQuery.Event) => {
+				this.window_localStorage_setItem("DEGREESV_MIN", $("#DEGREESV_MIN").prop("checked") ? "true" : "false");
+				const DEGREESV_MIN: string | null = this.window_localStorage_getItem("DEGREESV_MIN");
 				console.log("set DEGREESV_MIN:" + DEGREESV_MIN);
 			});
-			$("#TABSVIEW").change((ev) => {
+			$("#TABSVIEW").change((ev: JQuery.Event) => {
 				$("#TABSVIEW_PARENT").toggleClass("tabsviewoff");
-				window.localStorage.setItem("TABSVIEW", $("#TABSVIEW").prop("checked") ? "true" : "false");
-				const TABSVIEW: string | null = window.localStorage.getItem("TABSVIEW");
+				this.window_localStorage_setItem("TABSVIEW", $("#TABSVIEW").prop("checked") ? "true" : "false");
+				const TABSVIEW: string | null = this.window_localStorage_getItem("TABSVIEW");
 				console.log("set TABSVIEW:" + TABSVIEW);
 			});
-			$("#W40MODE").change((ev) => {
+			$("#W40MODE").change((ev: JQuery.Event) => {
 				$("#TABSVIEW_PARENT").toggleClass("w40kmode");
-				window.localStorage.setItem("W40MODE", $("#W40MODE").prop("checked") ? "true" : "false");
-				const W40MODE: string | null = window.localStorage.getItem("W40MODE");
+				this.window_localStorage_setItem("W40MODE", $("#W40MODE").prop("checked") ? "true" : "false");
+				const W40MODE: string | null = this.window_localStorage_getItem("W40MODE");
 				console.log("set W40MODE:" + W40MODE);
 			});
 		}
@@ -180,41 +226,47 @@ export class Component {
 			});
 		}
 		{
-			($("[data-toggle=confirmation]") as any).confirmation({
+			/*($("[data-toggle=confirmation]") as any).confirmation({
 				rootSelector: "[data-toggle=confirmation]",
-			});
+			});*/
 			($('#clearLatest') as any).confirmation({
 				rootSelector: '#clearLatest',
-				onConfirm: this.clearLatest
+				onConfirm: () => {
+					this.clearLatest();
+				}
 			});
 			($('#clearSum') as any).confirmation({
 				rootSelector: '#clearSum',
-				onConfirm: this.clearSum
+				onConfirm: () => {
+					this.clearSum();
+				}
 			});
 			($('#clearHistory') as any).confirmation({
 				rootSelector: '#clearHistory',
-				onConfirm: this.clearHistory
+				onConfirm: () => {
+					this.clearHistory();
+				}
 			});
 		}
 		{
 			// eslint-disable-next-line @typescript-eslint/no-this-alias
 			const _this = this;
-			$("#SKILL").change((ev) => {
+			$("#SKILL").change((ev: JQuery.Event) => {
 				_this.change();
 				_this.saveSkill();
 			});
-			$("#SKILL").keyup((ev) => {
+			$("#SKILL").keyup((ev: JQuery.Event) => {
 				_this.change();
 				_this.saveSkill();
 			});
-			$("#ROLL").change((ev) => {
+			$("#ROLL").change((ev: JQuery.Event) => {
 				const ROLL_FIELD: JQuery<HTMLInputElement> = $("#ROLL");
 				const ROLL_FIELD_VAL = ROLL_FIELD.val();
 				if (ROLL_FIELD_VAL) {
 					_this.rollSet100(Number(ROLL_FIELD_VAL));
 				}
 			});
-			$("#ROLL").keyup((ev) => {
+			$("#ROLL").keyup((ev: JQuery.Event) => {
 				if (/*typeof myVar !== 'undefined' &&*/ ev != null && (ev.key === "Enter" || ev.keyCode === 13)) {
 					const ROLL_FIELD: JQuery<HTMLInputElement> = $("#ROLL");
 					const ROLL_FIELD_VAL = ROLL_FIELD.val();
@@ -225,10 +277,10 @@ export class Component {
 					_this.change();
 				}
 			});
-			$("#FORMULA").change((ev) => {
+			$("#FORMULA").change((ev: JQuery.Event) => {
 				_this.calcFormula();
 			});
-			$("#FORMULA").keyup((ev) => {
+			$("#FORMULA").keyup((ev: JQuery.Event) => {
 				_this.calcFormula();
 			});
 		}
@@ -251,13 +303,17 @@ export class Component {
 				this.rollRandomAccurate(10, 'i10');
 			});
 			$("[rollRandom]").click((event: JQuery.Event) => {
-				console.log(event);
-				console.log((event as any).target);
-				const max: string | null = (event as any).target.getAttribute("rollRandom");
-				console.log(max);
-				console.log((event as any).originalEvent);
+				console.log("event", event);
+				const eventTarget: HTMLElement = (event as JQuery.TriggeredEvent).target;
+				console.log("eventTarget", eventTarget);
+				const max: string | null = eventTarget.getAttribute("rollRandom");
+				console.log("max", max);
 				if (max) {
-					this.rollRandom((event as any).originalEvent, Number(max), 'i' + max);
+					const originalEvent: Event | undefined = (event as JQuery.TriggeredEvent).originalEvent;
+					console.log("originalEvent", originalEvent);
+					if (originalEvent) {
+						this.rollRandom(originalEvent as MouseEvent, Number(max), 'i' + max);
+					}
 				}
 			});
 		}
@@ -267,7 +323,7 @@ export class Component {
 		const SKILL_FIELD: JQuery<HTMLInputElement> = $("#SKILL");
 		const SKILL_FIELD_VAL = SKILL_FIELD.val();
 		if (SKILL_FIELD_VAL) {
-			window.localStorage.setItem("SKILL", SKILL_FIELD_VAL.toString());
+			this.window_localStorage_setItem("SKILL", SKILL_FIELD_VAL.toString());
 			console.log("saveSkill:" + SKILL_FIELD_VAL);
 		}
 	}
@@ -310,21 +366,28 @@ export class Component {
 	}
 
 	clearSum() {
-		this.SUM_LIST = [];
-		this.D_LIST = [];
+		rpgData.SUM_LIST.splice(0, rpgData.SUM_LIST.length)
+		//rpgData.SUM_LIST = [];
+		rpgData.D_LIST.splice(0, rpgData.D_LIST.length)
+		//rpgData.D_LIST = [];
+		rpgData.historyLines.splice(0, rpgData.historyLines.length)
+		//rpgData.historyLines = [];
+		rpgData.save();
 	}
 
 	clearHistory() {
-		$("#FULL_HISTORY").html("<!-- -->");
 		this.clearSum();
+		$("#FULL_HISTORY").html("<!-- -->");
 	}
 
 	clearLatest() {
 		console.log($("#FULL_HISTORY li:first-of-type").attr('data-type'));
 		if ($("#FULL_HISTORY li:first-of-type").attr('data-type') == 'array-item') {
 			console.log('last array item removed');
-			this.SUM_LIST.pop();
-			this.D_LIST.pop();
+			rpgData.SUM_LIST.pop();
+			rpgData.D_LIST.pop();
+			rpgData.historyLines.pop();
+			rpgData.save();
 		}
 		$("#FULL_HISTORY li:first-of-type").remove();
 	}
@@ -362,20 +425,21 @@ export class Component {
 		if (!isSUM) {
 			this.clearSum();
 		}
-		this.SUM_LIST.push(rnd);
-		this.D_LIST.push(max);
-		const ARR_ALL_EQ = this.checkSameValues(this.D_LIST);
-		const tmpW = ARR_ALL_EQ && this.D_LIST[0] == 10 && $("#RESULT").val() == this.SUCCESSTEXT && $("#W40MODE").prop("checked");
+		rpgData.SUM_LIST.push(rnd);
+		rpgData.D_LIST.push(max);
+		rpgData.save();
+		const ARR_ALL_EQ = this.checkSameValues(rpgData.D_LIST);
+		const tmpW = ARR_ALL_EQ && rpgData.D_LIST[0] == 10 && $("#RESULT").val() == SUCCESSTEXT && $("#W40MODE").prop("checked");
 		const withDEGREESV_MIN = tmpW && $("#DEGREESV_MIN").prop("checked");
 		const withREROLLLOWEST = $("#REROLLLOWEST").prop("checked");
 		const withLASMASTERY = tmpW && $("#LASMASTERY").prop("checked");
 		const withMINIMUM = Number($("#MINIMUM").val()) > 0;
 		const withFLAT = Number($("#FLAT").val()) > 0;
-		console.log("SUM_LIST: " + this.SUM_LIST);
-		console.log("D_LIST: " + this.D_LIST);
+		console.log("SUM_LIST: " + rpgData.SUM_LIST);
+		console.log("D_LIST: " + rpgData.D_LIST);
 		let SUM_VALUE = 0;
 		let SUM_TEXT = "";
-		const CONVERTED_LIST = [...this.SUM_LIST];
+		const CONVERTED_LIST = [...rpgData.SUM_LIST];
 		if (withREROLLLOWEST) {
 			let LIST_MIN_VALUE = 9999999;
 			let LIST_MIN_VALUE_I = 9999999;
@@ -415,37 +479,37 @@ export class Component {
 		SUM_TEXT = "";
 		SUM_VALUE = 0;
 		CONVERTED_LIST.forEach((item, index, array) => {
-			console.log(item, ' __ ', index, ' __ ', array, ' __ ', this.SUM_LIST[index], ' __ ', CONVERTED_LIST[index], ' __ ', this.D_LIST[index]);
+			console.log("item", item, 'index', index, 'array', array, 'rpgData.SUM_LIST[index]', rpgData.SUM_LIST[index], 'CONVERTED_LIST[index]', CONVERTED_LIST[index], 'rpgData.D_LIST[index]', rpgData.D_LIST[index]);
 			if (index > 0) {
 				SUM_TEXT = SUM_TEXT + " + ";
 			}
 			if (item == -1) {
 				if (ARR_ALL_EQ) {
-					SUM_TEXT = SUM_TEXT + "<span class='cross'>" + this.SUM_LIST[index] + "</span>";
+					SUM_TEXT = SUM_TEXT + "<span class='cross'>" + rpgData.SUM_LIST[index] + "</span>";
 				} else {
-					SUM_TEXT = SUM_TEXT + "<span class='cross'>" + this.SUM_LIST[index] + "/[D" + this.D_LIST[index] + "]</span>";
+					SUM_TEXT = SUM_TEXT + "<span class='cross'>" + rpgData.SUM_LIST[index] + "/[D" + rpgData.D_LIST[index] + "]</span>";
 				}
 			} else {
-				if (this.SUM_LIST[index] != item) {
+				if (rpgData.SUM_LIST[index] != item) {
 					if (ARR_ALL_EQ) {
-						SUM_TEXT = SUM_TEXT + this.SUM_LIST[index] + "&#x21E8;" + item + "";
+						SUM_TEXT = SUM_TEXT + rpgData.SUM_LIST[index] + "&#x21E8;" + item + "";
 					} else {
-						SUM_TEXT = SUM_TEXT + this.SUM_LIST[index] + "&#x21E8;" + item + "/[D" + this.D_LIST[index] + "]";
+						SUM_TEXT = SUM_TEXT + rpgData.SUM_LIST[index] + "&#x21E8;" + item + "/[D" + rpgData.D_LIST[index] + "]";
 					}
 				} else {
 					if (ARR_ALL_EQ) {
 						SUM_TEXT = SUM_TEXT + item;
 					} else {
-						SUM_TEXT = SUM_TEXT + item + "/[D" + this.D_LIST[index] + "]";
+						SUM_TEXT = SUM_TEXT + item + "/[D" + rpgData.D_LIST[index] + "]";
 					}
 				}
 				// CRIT
 				if ($("#W40MODE").prop("checked")) {
-					if (index == 0 && this.SUM_LIST[index] == 10) {
+					if (index == 0 && rpgData.SUM_LIST[index] == 10) {
 						SUM_TEXT = SUM_TEXT + "<i style='margin-left:2px;' class='fas fa-meteor text-warning'></i>";
 					}
 				} else {
-					if (this.SUM_LIST[index] == 20 && this.D_LIST[index] == 20) {
+					if (rpgData.SUM_LIST[index] == 20 && rpgData.D_LIST[index] == 20) {
 						SUM_TEXT = SUM_TEXT + "<i style='margin-left:2px;' class='fas fa-meteor text-warning'></i>";
 					}
 				}
@@ -461,9 +525,9 @@ export class Component {
 		if (withFLAT) {
 			SUM_VALUE += Number($("#FLAT").val());
 		}
-		SUM_TEXT = "<span style='width:35px;' class='badge badge-pill badge-info'>" + SUM_VALUE + "</span>" + " = &Sigma;[#" + this.SUM_LIST.length + "](" + SUM_TEXT + ")";
+		SUM_TEXT = "<span style='width:35px;' class='badge badge-pill badge-info'>" + SUM_VALUE + "</span>" + " = &Sigma;[#" + rpgData.SUM_LIST.length + "](" + SUM_TEXT + ")";
 		if (ARR_ALL_EQ) {
-			SUM_TEXT = SUM_TEXT + "/[D" + this.D_LIST[0] + "]";
+			SUM_TEXT = SUM_TEXT + "/[D" + rpgData.D_LIST[0] + "]";
 		}
 		if (withFLAT) {
 			SUM_TEXT = SUM_TEXT + " + " + Number($("#FLAT").val()) + " (Flat Bonus)";
@@ -496,6 +560,8 @@ export class Component {
 			SUM_TEXT;
 		$("#LAST_HISTORY").html(historyLine);
 		$("#FULL_HISTORY").prepend("<li class='list-group-item' data-type='array-item'>" + historyLine + "</li>");
+		rpgData.historyLines.push(historyLine);
+		rpgData.save();
 	}
 
 	checkSameValues(array: number[]) {
@@ -533,7 +599,7 @@ export class Component {
 		this.clearSum();
 		this.change();
 		const SKILL = Number($("#SKILL").val());
-		const SUCCESS = $("#RESULT").val() == this.SUCCESSTEXT;
+		const SUCCESS = $("#RESULT").val() == SUCCESSTEXT;
 		const DEGREESV = $("#DEGREESV").val();
 		const d = new Date().toLocaleTimeString(this.getNavigatorLanguages()[0]);
 		const prepre = "<span style='display:inline;color:inherit;font-family:monospace;'>";
@@ -554,9 +620,9 @@ export class Component {
 			"</span> &#8669; " //
 			+
 			(SUCCESS ? //
-				" <span style='width:65px;' class='badge badge-pill badge-success'>" + this.SUCCESSTEXT + "</span>" //
+				" <span style='width:65px;' class='badge badge-pill badge-success'>" + SUCCESSTEXT + "</span>" //
 				:
-				"<span style='width:65px;' class='badge badge-pill badge-warning'>" + this.FAILTEXT + "</span>") //
+				"<span style='width:65px;' class='badge badge-pill badge-warning'>" + FAILTEXT + "</span>") //
 			+
 			" met " //
 			+
@@ -585,15 +651,15 @@ export class Component {
 			console.log("diff=" + diff);
 			DEGREESV = 1 + Math.floor(diff);
 			SUCCESS = true;
-			console.log(this.SUCCESSTEXT + " +" + DEGREESV + " DEGREESV");
+			console.log(SUCCESSTEXT + " +" + DEGREESV + " DEGREESV");
 		} else {
 			const diff = (ROLL - SKILL - 1) / 10.0;
 			console.log("diff=" + diff);
 			DEGREESV = 1 + Math.floor(diff);
 			SUCCESS = false;
-			console.log(this.FAILTEXT + " -" + DEGREESV + " DEGREESV");
+			console.log(FAILTEXT + " -" + DEGREESV + " DEGREESV");
 		}
-		$("#RESULT").val(SUCCESS ? this.SUCCESSTEXT : this.FAILTEXT);
+		$("#RESULT").val(SUCCESS ? SUCCESSTEXT : FAILTEXT);
 		if (SUCCESS) {
 			$("#RESULT").addClass("bg-success");
 			$("#RESULT").removeClass("bg-warning");
