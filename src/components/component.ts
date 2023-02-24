@@ -111,8 +111,6 @@ export class Component {
 	$DEGREESV!: JQuery<HTMLInputElement>;
 
 	init(): void {
-		// eslint-disable-next-line @typescript-eslint/no-this-alias
-		const _this = this;
 		this.$ROLL = $("#ROLL");
 		this.$SKILL = $("#SKILL");
 		this.$MINIMUM = $("#MINIMUM");
@@ -167,8 +165,10 @@ export class Component {
 				this.$MINIMUM.attr('data-slider-value', rpgData.MINIMUM);
 				this.$MINIMUMVal.text(rpgData.MINIMUM);
 			}
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(this.$MINIMUM as any).slider();
 			this.$MINIMUM.on("slide", (slideEvt: JQuery.Event) => {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				this.$MINIMUMVal.text((slideEvt as any).value);
 			});
 		}
@@ -178,8 +178,10 @@ export class Component {
 				this.$FLAT.attr('data-slider-value', rpgData.FLAT);
 				this.$FLATVal.text(rpgData.FLAT);
 			}
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(this.$FLAT as any).slider();
 			this.$FLAT.on("slide", (slideEvt: JQuery.Event) => {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				this.$FLATVal.text((slideEvt as any).value);
 			});
 		}
@@ -236,6 +238,7 @@ export class Component {
 			this.$LASMASTERY.prop("checked", rpgData.$LASMASTERY != null && rpgData.$LASMASTERY == "true");
 		}
 		{
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			this.$SHOWFORMULA.change((ev: JQuery.Event) => {
 				rpgData.SHOWFORMULA = this.$SHOWFORMULA.prop("checked") ? "true" : "false";
 				if (this.$SHOWFORMULA.prop("checked")) {
@@ -252,6 +255,7 @@ export class Component {
 			});
 		}
 		{
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			this.$FLAT.change((ev: JQuery.Event) => {
 				const FLAT_FIELD_VAL = this.$FLAT.val();
 				if (FLAT_FIELD_VAL) {
@@ -259,6 +263,7 @@ export class Component {
 				}
 				console.log("set FLAT:" + rpgData.FLAT);
 			});
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			this.$MINIMUM.change((ev: JQuery.Event) => {
 				const MINIMUM_FIELD_VAL = this.$MINIMUM.val();
 				if (MINIMUM_FIELD_VAL) {
@@ -266,27 +271,33 @@ export class Component {
 				}
 				console.log("set MINIMUM:" + rpgData.MINIMUM);
 			});
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			this.$REROLLLOWEST.change((ev: JQuery.Event) => {
 				rpgData.REROLLLOWEST = this.$REROLLLOWEST.prop("checked") ? "true" : "false";
 				console.log("set REROLLLOWEST:" + rpgData.REROLLLOWEST);
 			});
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			this.$LASMASTERY.change((ev: JQuery.Event) => {
 				rpgData.$LASMASTERY = this.$LASMASTERY.prop("checked") ? "true" : "false";
 				console.log("set LASMASTERY:" + rpgData.$LASMASTERY);
 			});
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			this.$SUM.change((ev: JQuery.Event) => {
 				rpgData.SUM = this.$SUM.prop("checked") ? "true" : "false";
 				console.log("set SUM:" + rpgData.SUM);
 			});
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			this.$DEGREESV_MIN.change((ev: JQuery.Event) => {
 				rpgData.DEGREESV_MIN = this.$DEGREESV_MIN.prop("checked") ? "true" : "false";
 				console.log("set DEGREESV_MIN:" + rpgData.DEGREESV_MIN);
 			});
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			this.$TABSVIEW.change((ev: JQuery.Event) => {
 				this.$TABSVIEW_PARENT.toggleClass("tabsviewoff");
 				rpgData.TABSVIEW = this.$TABSVIEW.prop("checked") ? "true" : "false";
 				console.log("set TABSVIEW:" + rpgData.TABSVIEW);
 			});
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			this.$W40MODE.change((ev: JQuery.Event) => {
 				this.$TABSVIEW_PARENT.toggleClass("w40kmode");
 				rpgData.W40MODE = this.$W40MODE.prop("checked") ? "true" : "false";
@@ -294,6 +305,7 @@ export class Component {
 			});
 		}
 		{
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			($('[data-toggle="popover"]') as any).popover({
 				"trigger": "focus",
 				"html": true
@@ -303,18 +315,21 @@ export class Component {
 			/*($("[data-toggle=confirmation]") as any).confirmation({
 				rootSelector: "[data-toggle=confirmation]",
 			});*/
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			($('#clearLatest') as any).confirmation({
 				rootSelector: '#clearLatest',
 				onConfirm: () => {
 					this.clearLatest();
 				}
 			});
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			($('#clearSum') as any).confirmation({
 				rootSelector: '#clearSum',
 				onConfirm: () => {
 					this.clearSum();
 				}
 			});
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			($('#clearHistory') as any).confirmation({
 				rootSelector: '#clearHistory',
 				onConfirm: () => {
@@ -323,35 +338,40 @@ export class Component {
 			});
 		}
 		{
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			this.$SKILL.change((ev: JQuery.Event) => {
-				_this.change();
-				_this.saveSkill();
+				this.change();
+				this.saveSkill();
 			});
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			this.$SKILL.keyup((ev: JQuery.Event) => {
-				_this.change();
-				_this.saveSkill();
+				this.change();
+				this.saveSkill();
 			});
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			this.$ROLL.change((ev: JQuery.Event) => {
 				const ROLL_FIELD_VAL = this.$ROLL.val();
 				if (ROLL_FIELD_VAL) {
-					_this.rollSet100(Number(ROLL_FIELD_VAL));
+					this.rollSet100(Number(ROLL_FIELD_VAL));
 				}
 			});
 			this.$ROLL.keyup((ev: JQuery.Event) => {
 				if (/*typeof myVar !== 'undefined' &&*/ ev != null && (ev.key === "Enter" || ev.keyCode === 13)) {
 					const ROLL_FIELD_VAL = this.$ROLL.val();
 					if (ROLL_FIELD_VAL) {
-						_this.rollSet100(Number(ROLL_FIELD_VAL));
+						this.rollSet100(Number(ROLL_FIELD_VAL));
 					}
 				} else {
-					_this.change();
+					this.change();
 				}
 			});
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			this.$FORMULA.change((ev: JQuery.Event) => {
-				_this.calcFormula();
+				this.calcFormula();
 			});
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			this.$FORMULA.keyup((ev: JQuery.Event) => {
-				_this.calcFormula();
+				this.calcFormula();
 			});
 		}
 		{
@@ -366,9 +386,11 @@ export class Component {
 			document.getElementById("rollRandom100")?.addEventListener("click", (event: MouseEvent) => {
 				this.rollRandom100(event);
 			});
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			document.getElementById("saveFormulaResult")?.addEventListener("click", (event: MouseEvent) => {
 				this.saveFormulaResult();
 			});
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			document.getElementById("ACCURATE_ROLL")?.addEventListener("click", (event: MouseEvent) => {
 				this.rollRandomAccurate(10, 'i10');
 			});
@@ -513,6 +535,7 @@ export class Component {
 		if (withREROLLLOWEST) {
 			let LIST_MIN_VALUE = 9999999;
 			let LIST_MIN_VALUE_I = 9999999;
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			CONVERTED_LIST.forEach((item, index, array) => {
 				if (item < LIST_MIN_VALUE) {
 					LIST_MIN_VALUE = item;
@@ -524,6 +547,7 @@ export class Component {
 		}
 		if (withMINIMUM) {
 			const MINIMUM = Number(this.$MINIMUM.val());
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			CONVERTED_LIST.forEach((item, index, array) => {
 				if (item < MINIMUM && item != -1) {
 					CONVERTED_LIST[index] = MINIMUM;
@@ -534,6 +558,7 @@ export class Component {
 		if (withDEGREESV_MIN) {
 			let LIST_MIN_VALUE = 9999999;
 			let LIST_MIN_VALUE_I = 9999999;
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			CONVERTED_LIST.forEach((item, index, array) => {
 				if (item < LIST_MIN_VALUE && item != -1) {
 					LIST_MIN_VALUE = item;
