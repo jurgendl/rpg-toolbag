@@ -5,73 +5,74 @@ export class RpgData {
 	SUM_LIST: number[] = [];
 	D_LIST: number[] = [];
 	historyLines: string[] = [];
-	_MINIMUM: string | null = null;
+
+	$MINIMUM: string | null = null;
 
 	set MINIMUM(MINIMUM: string) {
-		this._MINIMUM = MINIMUM;
+		this.$MINIMUM = MINIMUM;
 		this.save();
 	}
 
-	_FLAT: string | null = null;
+	$FLAT: string | null = null;
 
 	set FLAT(FLAT: string) {
-		this._FLAT = FLAT;
+		this.$FLAT = FLAT;
 		this.save();
 	}
 
-	_SKILL: string | null = null;
+	$SKILL: string | null = null;
 
 	set SKILL(SKILL: string) {
-		this._SKILL = SKILL;
+		this.$SKILL = SKILL;
 		this.save();
 	}
 
-	_TABSVIEW: string | null = null;
+	$TABSVIEW: string | null = null;
 
 	set TABSVIEW(TABSVIEW: string) {
-		this._TABSVIEW = TABSVIEW;
+		this.$TABSVIEW = TABSVIEW;
 		this.save();
 	}
 
-	_W40MODE: string | null = null;
+	$W40MODE: string | null = null;
 
 	set W40MODE(W40MODE: string) {
-		this._W40MODE = W40MODE;
+		this.$W40MODE = W40MODE;
 		this.save();
 	}
 
-	_SUM: string | null = null;
+	$SUM: string | null = null;
 
 	set SUM(SUM: string) {
-		this._SUM = SUM;
+		this.$SUM = SUM;
 		this.save();
 	}
 
-	_DEGREESV_MIN: string | null = null;
+	$DEGREESV_MIN: string | null = null;
 
 	set DEGREESV_MIN(DEGREESV_MIN: string) {
-		this._DEGREESV_MIN = DEGREESV_MIN;
+		this.$DEGREESV_MIN = DEGREESV_MIN;
 		this.save();
 	}
 
-	_REROLLLOWEST: string | null = null;
+	$REROLLLOWEST: string | null = null;
 
 	set REROLLLOWEST(REROLLLOWEST: string) {
-		this._REROLLLOWEST = REROLLLOWEST;
+		this.$REROLLLOWEST = REROLLLOWEST;
 		this.save();
 	}
 
-	_SHOWFORMULA: string | null = null;
+	$SHOWFORMULA: string | null = null;
 
 	set SHOWFORMULA(SHOWFORMULA: string) {
-		this._SHOWFORMULA = SHOWFORMULA;
+		this.$SHOWFORMULA = SHOWFORMULA;
 		this.save();
 	}
 
-	_LASMASTERY: string | null = null;
+	$LASMASTERY: string | null = null;
 
 	set LASMASTERY(LASMASTERY: string) {
-		this._LASMASTERY = LASMASTERY;
+		this.$LASMASTERY = LASMASTERY;
 		this.save();
 	}
 
@@ -138,19 +139,19 @@ export class Component {
 			const rggdata$: string | null = localStorage.getItem("rggdata");
 			if (rggdata$) {
 				console.log("RpgData.init: " + rggdata$);
-				const rggdata$$ = JSON.parse(rggdata$);
+				const rggdata$$: RpgData = JSON.parse(rggdata$);
 				rpgData.SUM_LIST = rggdata$$.SUM_LIST;
 				rpgData.D_LIST = rggdata$$.D_LIST;
-				rpgData._MINIMUM = rggdata$$._MINIMUM;
-				rpgData._FLAT = rggdata$$._FLAT;
-				rpgData._SKILL = rggdata$$._SKILL;
-				rpgData._TABSVIEW = rggdata$$._TABSVIEW;
-				rpgData._W40MODE = rggdata$$._W40MODE;
-				rpgData._SUM = rggdata$$._SUM;
-				rpgData._DEGREESV_MIN = rggdata$$._DEGREESV_MIN;
-				rpgData._REROLLLOWEST = rggdata$$._REROLLLOWEST;
-				rpgData._SHOWFORMULA = rggdata$$._SHOWFORMULA;
-				rpgData._LASMASTERY = rggdata$$._LASMASTERY;
+				rpgData.$MINIMUM = rggdata$$.$MINIMUM;
+				rpgData.$FLAT = rggdata$$.$FLAT;
+				rpgData.$SKILL = rggdata$$.$SKILL;
+				rpgData.$TABSVIEW = rggdata$$.$TABSVIEW;
+				rpgData.$W40MODE = rggdata$$.$W40MODE;
+				rpgData.$SUM = rggdata$$.$SUM;
+				rpgData.$DEGREESV_MIN = rggdata$$.$DEGREESV_MIN;
+				rpgData.$REROLLLOWEST = rggdata$$.$REROLLLOWEST;
+				rpgData.$SHOWFORMULA = rggdata$$.$SHOWFORMULA;
+				rpgData.$LASMASTERY = rggdata$$.$LASMASTERY;
 				rpgData.historyLines = rggdata$$.historyLines;
 				if (rpgData.historyLines && rpgData.historyLines.length > 0) {
 					this.$LAST_HISTORY.html(rpgData.historyLines[rpgData.historyLines.length - 1]);
@@ -184,7 +185,8 @@ export class Component {
 		}
 		{
 			if (rpgData.SKILL != null) {
-				(<HTMLInputElement>document.getElementById("SKILL")).value = rpgData.SKILL;
+				//(<HTMLInputElement>document.getElementById("SKILL")).value = rpgData.SKILL;
+				this.$SKILL.val(rpgData.SKILL);
 				console.log("restoreSkill:" + rpgData.SKILL);
 			}
 		}
@@ -209,25 +211,13 @@ export class Component {
 			}
 		}
 		{
-			if (rpgData.SUM != null && rpgData.SUM == "true") {
-				this.$SUM.prop("checked", true);
-			} else {
-				this.$SUM.prop("checked", false);
-			}
+			this.$SUM.prop("checked", rpgData.SUM != null && rpgData.SUM == "true");
 		}
 		{
-			if (rpgData.DEGREESV_MIN != null && rpgData.DEGREESV_MIN == "true") {
-				this.$DEGREESV_MIN.prop("checked", true);
-			} else {
-				this.$DEGREESV_MIN.prop("checked", false);
-			}
+			this.$DEGREESV_MIN.prop("checked", rpgData.DEGREESV_MIN != null && rpgData.DEGREESV_MIN == "true");
 		}
 		{
-			if (rpgData.REROLLLOWEST != null && rpgData.REROLLLOWEST == "true") {
-				this.$REROLLLOWEST.prop("checked", true);
-			} else {
-				this.$REROLLLOWEST.prop("checked", false);
-			}
+			this.$REROLLLOWEST.prop("checked", rpgData.REROLLLOWEST != null && rpgData.REROLLLOWEST == "true");
 		}
 		{
 			if (rpgData.SHOWFORMULA != null && rpgData.SHOWFORMULA == "true") {
@@ -243,11 +233,7 @@ export class Component {
 			}
 		}
 		{
-			if (rpgData.LASMASTERY != null && rpgData.LASMASTERY == "true") {
-				this.$LASMASTERY.prop("checked", true);
-			} else {
-				this.$LASMASTERY.prop("checked", false);
-			}
+			this.$LASMASTERY.prop("checked", rpgData.$LASMASTERY != null && rpgData.$LASMASTERY == "true");
 		}
 		{
 			this.$SHOWFORMULA.change((ev: JQuery.Event) => {
@@ -271,48 +257,40 @@ export class Component {
 				if (FLAT_FIELD_VAL) {
 					rpgData.FLAT = FLAT_FIELD_VAL.toString();
 				}
-				const FLAT: string | null = rpgData.FLAT;
-				console.log("set FLAT:" + FLAT);
+				console.log("set FLAT:" + rpgData.FLAT);
 			});
 			this.$MINIMUM.change((ev: JQuery.Event) => {
 				const MINIMUM_FIELD_VAL = this.$MINIMUM.val();
 				if (MINIMUM_FIELD_VAL) {
 					rpgData.MINIMUM = MINIMUM_FIELD_VAL.toString();
 				}
-				const MINIMUM: string | null = rpgData.MINIMUM;
-				console.log("set MINIMUM:" + MINIMUM);
+				console.log("set MINIMUM:" + rpgData.MINIMUM);
 			});
 			this.$REROLLLOWEST.change((ev: JQuery.Event) => {
 				rpgData.REROLLLOWEST = this.$REROLLLOWEST.prop("checked") ? "true" : "false";
-				const REROLLLOWEST: string | null = rpgData.REROLLLOWEST;
-				console.log("set REROLLLOWEST:" + REROLLLOWEST);
+				console.log("set REROLLLOWEST:" + rpgData.REROLLLOWEST);
 			});
 			this.$LASMASTERY.change((ev: JQuery.Event) => {
-				rpgData.LASMASTERY = this.$LASMASTERY.prop("checked") ? "true" : "false";
-				const LASMASTERY: string | null = rpgData.LASMASTERY;
-				console.log("set LASMASTERY:" + LASMASTERY);
+				rpgData.$LASMASTERY = this.$LASMASTERY.prop("checked") ? "true" : "false";
+				console.log("set LASMASTERY:" + rpgData.$LASMASTERY);
 			});
 			this.$SUM.change((ev: JQuery.Event) => {
 				rpgData.SUM = this.$SUM.prop("checked") ? "true" : "false";
-				const SUM: string | null = rpgData.SUM;
-				console.log("set SUM:" + SUM);
+				console.log("set SUM:" + rpgData.SUM);
 			});
 			this.$DEGREESV_MIN.change((ev: JQuery.Event) => {
 				rpgData.DEGREESV_MIN = this.$DEGREESV_MIN.prop("checked") ? "true" : "false";
-				const DEGREESV_MIN: string | null = rpgData.DEGREESV_MIN;
-				console.log("set DEGREESV_MIN:" + DEGREESV_MIN);
+				console.log("set DEGREESV_MIN:" + rpgData.DEGREESV_MIN);
 			});
 			this.$TABSVIEW.change((ev: JQuery.Event) => {
 				this.$TABSVIEW_PARENT.toggleClass("tabsviewoff");
 				rpgData.TABSVIEW = this.$TABSVIEW.prop("checked") ? "true" : "false";
-				const TABSVIEW: string | null = rpgData.TABSVIEW;
-				console.log("set TABSVIEW:" + TABSVIEW);
+				console.log("set TABSVIEW:" + rpgData.TABSVIEW);
 			});
 			this.$W40MODE.change((ev: JQuery.Event) => {
 				this.$TABSVIEW_PARENT.toggleClass("w40kmode");
 				rpgData.W40MODE = this.$W40MODE.prop("checked") ? "true" : "false";
-				const W40MODE: string | null = rpgData.W40MODE;
-				console.log("set W40MODE:" + W40MODE);
+				console.log("set W40MODE:" + rpgData.W40MODE);
 			});
 		}
 		{
