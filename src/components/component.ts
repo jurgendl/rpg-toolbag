@@ -117,7 +117,7 @@ export class RpgData {
 	}
 
 	save() {
-		localStorage.setItem("rggdata", JSON.stringify(this));
+		localStorage.setItem("rpg-data", JSON.stringify(this));
 		//console.log("RpgData.save: " + JSON.stringify(this));
 	}
 }
@@ -174,7 +174,7 @@ export class Component {
 		this.$FORMULA_RESULT = $("#FORMULA_RESULT");
 		this.$DEGREESV = $("#DEGREESV");
 
-		const rggdata$: string | null = localStorage.getItem("rggdata");
+		const rggdata$: string | null = localStorage.getItem("rpg-data");
 		if (rggdata$) {
 			const rggdata$$: RpgData = JSON.parse(rggdata$);
 			rpgData.SUM_LIST = rggdata$$.SUM_LIST;
@@ -328,9 +328,6 @@ export class Component {
 			"html": true
 		});
 
-		/*($("[data-toggle=confirmation]") as any).confirmation({
-			rootSelector: "[data-toggle=confirmation]",
-		});*/
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		($('#clearLatest') as any).confirmation({
 			rootSelector: '#clearLatest',
@@ -410,15 +407,15 @@ export class Component {
 			this.rollRandomAccurate(10, 'i10');
 		});
 
-		$("[rollRandom]").click((event: JQuery.Event) => {
-			console.log("event", event);
-			const eventTarget: HTMLElement = (event as JQuery.TriggeredEvent).target;
-			console.log("eventTarget", eventTarget);
+		$("[rollRandom]").click((event: JQuery.TriggeredEvent) => {
+			//console.log("event", event);
+			const eventTarget: HTMLElement = event.target;
+			//console.log("eventTarget", eventTarget);
 			const max: string | null = eventTarget.getAttribute("rollRandom");
-			console.log("max", max);
+			//console.log("max", max);
 			if (max) {
-				const originalEvent: Event | undefined = (event as JQuery.TriggeredEvent).originalEvent;
-				console.log("originalEvent", originalEvent);
+				const originalEvent: Event | undefined = event.originalEvent;
+				//console.log("originalEvent", originalEvent);
 				if (originalEvent) {
 					this.rollRandom(originalEvent as MouseEvent, Number(max), 'i' + max);
 				}
@@ -437,15 +434,15 @@ export class Component {
 		try {
 			let FORMULA = this.$FORMULA.val();
 			if (FORMULA) {
-				console.log(FORMULA);
+				//console.log(FORMULA);
 				FORMULA = FORMULA.toString().replace("x", "*").replace(":", "/").replace("×", "*").replace("÷", "/").replace("+", "+").replace(",", ".");
-				console.log(FORMULA);
+				//console.log(FORMULA);
 				const FORMULA_EVAL = eval(FORMULA);
-				console.log(FORMULA_EVAL);
+				//console.log(FORMULA_EVAL);
 				this.$FORMULA_RESULT.text(FORMULA_EVAL);
 			}
 		} catch (err) {
-			console.log(err);
+			console.error(err);
 			this.$FORMULA_RESULT.text('?');
 		}
 	}
@@ -487,9 +484,9 @@ export class Component {
 
 	clearLatest() {
 		const $FULL_HISTORY_FIRST = $("#FULL_HISTORY li:first-of-type");
-		console.log($FULL_HISTORY_FIRST.attr('data-type'));
+		//console.log($FULL_HISTORY_FIRST.attr('data-type'));
 		if ($FULL_HISTORY_FIRST.attr('data-type') == 'array-item') {
-			console.log('last array item removed');
+			//console.log('last array item removed');
 			rpgData.SUM_LIST.pop();
 			rpgData.D_LIST.pop();
 			rpgData.historyLines.pop();
@@ -500,7 +497,7 @@ export class Component {
 
 	rollRandomAccurate(max: number, input: string) {
 		const accurate_dice = this.$ACCURATE_ROLL.attr("accurate-dice");
-		console.log('accurate-dice: ' + accurate_dice);
+		//console.log('accurate-dice: ' + accurate_dice);
 		for (let i = 0; i < Number(accurate_dice); i++) {
 			this.rollRandom(null, max, input);
 		}
@@ -509,8 +506,8 @@ export class Component {
 	rollRandom(event: MouseEvent | null, max: number, input: string) {
 		let iii = 1;
 		if (event) {
-			console.log("SHIFT:" + event.shiftKey);
-			console.log("CTRL:" + event.ctrlKey);
+			//console.log("SHIFT:" + event.shiftKey);
+			//console.log("CTRL:" + event.ctrlKey);
 			if (event.ctrlKey && event.shiftKey) {
 				iii = 20;
 			} else if (event.ctrlKey) {
@@ -673,8 +670,8 @@ export class Component {
 	}
 
 	rollRandom100(event: MouseEvent) {
-		console.log("SHIFT:" + event.shiftKey);
-		console.log("CTRL:" + event.ctrlKey);
+		//console.log("SHIFT:" + event.shiftKey);
+		//console.log("CTRL:" + event.ctrlKey);
 		let iii;
 		if (event.ctrlKey && event.shiftKey) {
 			for (iii = 0; iii < 20; iii++) {
@@ -747,21 +744,21 @@ export class Component {
 	change() {
 		const SKILL = Number(this.$SKILL.val());
 		const ROLL = Number(this.$ROLL.val());
-		console.log("ROLL<=SKILL :: " + ROLL + "<=" + SKILL + " :: " + (ROLL <= SKILL));
+		//console.log("ROLL<=SKILL :: " + ROLL + "<=" + SKILL + " :: " + (ROLL <= SKILL));
 		let DEGREESV;
 		let SUCCESS;
 		if (ROLL <= SKILL) {
 			const diff = (SKILL - ROLL) / 10.0;
-			console.log("diff=" + diff);
+			//console.log("diff=" + diff);
 			DEGREESV = 1 + Math.floor(diff);
 			SUCCESS = true;
-			console.log(SUCCESSTEXT + " +" + DEGREESV + " DEGREESV");
+			//console.log(SUCCESSTEXT + " +" + DEGREESV + " DEGREESV");
 		} else {
 			const diff = (ROLL - SKILL - 1) / 10.0;
-			console.log("diff=" + diff);
+			//console.log("diff=" + diff);
 			DEGREESV = 1 + Math.floor(diff);
 			SUCCESS = false;
-			console.log(FAILTEXT + " -" + DEGREESV + " DEGREESV");
+			//console.log(FAILTEXT + " -" + DEGREESV + " DEGREESV");
 		}
 		this.$RESULT.val(SUCCESS ? SUCCESSTEXT : FAILTEXT);
 		if (SUCCESS) {
@@ -769,7 +766,7 @@ export class Component {
 			this.$RESULT.removeClass("bg-warning");
 			this.$RESULT.addClass("text-white");
 			const ACCURATE = Math.min(2, Math.floor(DEGREESV / 2));
-			console.log("ACCURATE=" + ACCURATE)
+			//console.log("ACCURATE=" + ACCURATE)
 			this.$ACCURATE_ROLL.html("+" + ACCURATE + "D");
 			this.$ACCURATE_ROLL.attr("accurate-dice", 1 + ACCURATE);
 		} else {
