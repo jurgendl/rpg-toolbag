@@ -228,7 +228,8 @@ export class Component {
 			this.$SKILL.val(rpgData.SKILL);
 		}
 
-		if (rpgData.TABSVIEW != null && rpgData.TABSVIEW == "true") {
+		// eslint-disable-next-line no-constant-condition
+		if (false /*rpgData.TABSVIEW != null && rpgData.TABSVIEW == "true"*/) {
 			this.$TABSVIEW.prop("checked", true);
 			this.$TABSVIEW_PARENT.removeClass("tabsviewoff");
 		} else {
