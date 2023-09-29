@@ -204,10 +204,10 @@ export class Component {
 			this.$MINIMUM.attr('data-slider-value', rpgData.MINIMUM);
 			this.$MINIMUMVal.text(rpgData.MINIMUM);
 		}
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 		(this.$MINIMUM as any).slider();
 		this.$MINIMUM.on("slide", (slideEvt: JQuery.Event) => {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 			this.$MINIMUMVal.text((slideEvt as any).value);
 		});
 
@@ -216,10 +216,10 @@ export class Component {
 			this.$FLAT.attr('data-slider-value', rpgData.FLAT);
 			this.$FLATVal.text(rpgData.FLAT);
 		}
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 		(this.$FLAT as any).slider();
 		this.$FLAT.on("slide", (slideEvt: JQuery.Event) => {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 			this.$FLATVal.text((slideEvt as any).value);
 		});
 
@@ -265,7 +265,7 @@ export class Component {
 
 		this.$LASMASTERY.prop("checked", rpgData.$LASMASTERY != null && rpgData.$LASMASTERY == "true");
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		this.$SHOWFORMULA.change((ev: JQuery.Event) => {
 			rpgData.SHOWFORMULA = this.$SHOWFORMULA.prop("checked") ? "true" : "false";
 			if (this.$SHOWFORMULA.prop("checked")) {
@@ -275,7 +275,7 @@ export class Component {
 			}
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		this.$FLAT.change((ev: JQuery.Event) => {
 			const FLAT_FIELD_VAL = this.$FLAT.val();
 			if (FLAT_FIELD_VAL) {
@@ -283,7 +283,7 @@ export class Component {
 			}
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		this.$MINIMUM.change((ev: JQuery.Event) => {
 			const MINIMUM_FIELD_VAL = this.$MINIMUM.val();
 			if (MINIMUM_FIELD_VAL) {
@@ -291,45 +291,45 @@ export class Component {
 			}
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		this.$REROLLLOWEST.change((ev: JQuery.Event) => {
 			rpgData.REROLLLOWEST = this.$REROLLLOWEST.prop("checked") ? "true" : "false";
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		this.$LASMASTERY.change((ev: JQuery.Event) => {
 			rpgData.$LASMASTERY = this.$LASMASTERY.prop("checked") ? "true" : "false";
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		this.$SUM.change((ev: JQuery.Event) => {
 			rpgData.SUM = this.$SUM.prop("checked") ? "true" : "false";
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		this.$DEGREESV_MIN.change((ev: JQuery.Event) => {
 			rpgData.DEGREESV_MIN = this.$DEGREESV_MIN.prop("checked") ? "true" : "false";
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		this.$TABSVIEW.change((ev: JQuery.Event) => {
 			this.$TABSVIEW_PARENT.toggleClass("tabsviewoff");
 			rpgData.TABSVIEW = this.$TABSVIEW.prop("checked") ? "true" : "false";
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		this.$W40MODE.change((ev: JQuery.Event) => {
 			this.$TABSVIEW_PARENT.toggleClass("w40kmode");
 			rpgData.W40MODE = this.$W40MODE.prop("checked") ? "true" : "false";
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 		($('[data-toggle="popover"]') as any).popover({
 			"trigger": "focus",
 			"html": true
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 		($('#clearLatest') as any).confirmation({
 			rootSelector: '#clearLatest',
 			onConfirm: () => {
@@ -337,7 +337,7 @@ export class Component {
 			}
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 		($('#clearSum') as any).confirmation({
 			rootSelector: '#clearSum',
 			onConfirm: () => {
@@ -345,7 +345,7 @@ export class Component {
 			}
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 		($('#clearHistory') as any).confirmation({
 			rootSelector: '#clearHistory',
 			onConfirm: () => {
@@ -353,19 +353,19 @@ export class Component {
 			}
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		this.$SKILL.change((ev: JQuery.Event) => {
 			this.change();
 			this.saveSkill();
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		this.$SKILL.keyup((ev: JQuery.Event) => {
 			this.change();
 			this.saveSkill();
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		this.$ROLL.change((ev: JQuery.Event) => {
 			const ROLL_FIELD_VAL = this.$ROLL.val();
 			if (ROLL_FIELD_VAL) {
@@ -384,12 +384,12 @@ export class Component {
 			}
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		this.$FORMULA.change((ev: JQuery.Event) => {
 			this.calcFormula();
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		this.$FORMULA.keyup((ev: JQuery.Event) => {
 			this.calcFormula();
 		});
@@ -398,12 +398,12 @@ export class Component {
 			this.rollRandom100(event);
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		document.getElementById("saveFormulaResult")?.addEventListener("click", (event: MouseEvent) => {
 			this.saveFormulaResult();
 		});
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		document.getElementById("ACCURATE_ROLL")?.addEventListener("click", (event: MouseEvent) => {
 			this.rollRandomAccurate(10, 'i10');
 		});
@@ -545,7 +545,7 @@ export class Component {
 		if (withREROLLLOWEST) {
 			let LIST_MIN_VALUE = 9999999;
 			let LIST_MIN_VALUE_I = 9999999;
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 			CONVERTED_LIST.forEach((item, index, array) => {
 				if (item < LIST_MIN_VALUE) {
 					LIST_MIN_VALUE = item;
@@ -556,7 +556,7 @@ export class Component {
 		}
 		if (withMINIMUM) {
 			const MINIMUM = Number(this.$MINIMUM.val());
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 			CONVERTED_LIST.forEach((item, index, array) => {
 				if (item < MINIMUM && item != -1) {
 					CONVERTED_LIST[index] = MINIMUM;
@@ -566,7 +566,7 @@ export class Component {
 		if (withDEGREESV_MIN) {
 			let LIST_MIN_VALUE = 9999999;
 			let LIST_MIN_VALUE_I = 9999999;
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 			CONVERTED_LIST.forEach((item, index, array) => {
 				if (item < LIST_MIN_VALUE && item != -1) {
 					LIST_MIN_VALUE = item;
@@ -580,7 +580,7 @@ export class Component {
 		}
 		SUM_TEXT = "";
 		SUM_VALUE = 0;
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		CONVERTED_LIST.forEach((item, index, array) => {
 			if (index > 0) {
 				SUM_TEXT = SUM_TEXT + " + ";
