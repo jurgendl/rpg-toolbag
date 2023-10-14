@@ -298,3 +298,30 @@ body {
 .fa-meteor {
 	text-shadow: 0.8px 0.8px #00000080;
 }
+
+/* ------------------------------------------------------ */
+
+#darkmode-toggle-container {
+	position: fixed;
+	top: -1px;
+	right: 10px;
+	z-index: 1000;
+}
+
+body {
+	div.darkmode {
+		display: inline-block;
+		cursor: pointer;
+	}
+
+	&.dark .darkmode .light,
+	&:not(.dark) .darkmode .dark {
+		display: none;
+	}
+}
+
+body.dark {
+
+}
+
+/* ------------------------------------------------------ */
