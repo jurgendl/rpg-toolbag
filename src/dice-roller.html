@@ -6,6 +6,7 @@
 <!-- https://clipboardjs.com/ -->
 <!-- https://github.com/seiyria/bootstrap-slider -->
 <!-- https://seiyria.com/bootstrap-slider/ -->
+<!--https://developer.snapappointments.com/bootstrap-select/examples/-->
 
 <head>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
@@ -25,6 +26,7 @@
 	<link id="theme" rel="stylesheet" href="assets/original.bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css" integrity="sha512-3q8fi8M0VS+X/3n64Ndpp6Bit7oXSiyCnzmlx6IDBLGlY5euFySyJ46RUlqIVs0DPCGOypqP8IRk/EyPvU28mQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 </head>
 
 <body class="overridden">
@@ -52,10 +54,10 @@
 		<div style="display: inline-block;" class="custom-control custom-switch mr-2">
 			<input type="checkbox" class="custom-control-input" id="SHOWFORMULA">
 			<label class="custom-control-label" for="SHOWFORMULA">
-				Formule
+				Formula
 			</label>
 			<sup class="mr-2">
-				<a style="cursor: help;" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Toon formule invoer.">
+				<a style="cursor: help;" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Show formula.">
 					<span class="fa-stack" style="font-size:0.5em">
 						<i style="color:var(--info)" class="fas fa-circle fa-stack-2x"></i>
 						<i class="fas fa-info fa-stack-1x fa-inverse"></i>
@@ -65,9 +67,9 @@
 		</div>
 		<div style="display: inline-block;" class="custom-control custom-switch mr-2">
 			<input type="checkbox" class="custom-control-input" id="W40MODE">
-			<label class="custom-control-label" for="W40MODE">W40K mode</label>
+			<label class="custom-control-label" for="W40MODE">W40K</label>
 			<sup class="mr-2">
-				<a style="cursor: help;" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Toon W40K-only deel.">
+				<a style="cursor: help;" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="W40K mode.">
 					<span class="fa-stack" style="font-size:0.5em">
 						<i style="color:var(--info)" class="fas fa-circle fa-stack-2x"></i>
 						<i class="fas fa-info fa-stack-1x fa-inverse"></i>
@@ -94,7 +96,7 @@
 					<div id="FORMULAPARENT" style="display: none;" class="col-12 input-group input-group-sm mb-1">
 						<div class="input-group-prepend">
 							<span style="width: 8em;" class="input-group-text">
-								Formule
+								Formula
 							</span>
 						</div>
 						<input class="form-control form-control-sm" id="FORMULA" type="text">
@@ -137,9 +139,9 @@
 					</div>
 					<div class="only-in-40k-mode col-md-6 col-12 input-group input-group-sm mb-1">
 						<div class="input-group-prepend">
-							<span style="width: 8em;" class="input-group-text">Degrees&nbsp;
+							<span style="width: 8em;" class="input-group-text">Add. Degrees&nbsp;
 								<sup>
-									<a style="cursor: help;" tabindex="0" data-toggle="popover" data-content="<b>Warhammer</b>: During an ONLY WAR game, knowing whether a Test has succeeded or failed is typically sufficient. There are times, however, when it is helpful to know just how well a character has succeeded at a given task, or just how badly he has failed. This is of particular importance with social skills, such as Charm and Inquiry, as well as during some combat situations such as when firing an automatic weapon.<br>Measuring a character’s Degrees of Success or Failure is a rather straightforward process. Once the percentage roll for the Test is made, compare the outcome of the roll with the modified Characteristic score. If the roll is equal to or lower than the Characteristic, the character has gained one Degree of Success. Furthermore, every 10 points by which the Test succeeds grants yet another Degree of Success. Conversely, if the roll is higher than the Characteristic, the character has gained one Degree of Failure, and gains an additional Degree of Failure for every additional 10 points rolled over the Characteristic.">
+									<a style="cursor: help;" tabindex="0" data-toggle="popover" data-content="During an ONLY WAR game, knowing whether a Test has succeeded or failed is typically sufficient. There are times, however, when it is helpful to know just how well a character has succeeded at a given task, or just how badly he has failed. This is of particular importance with social skills, such as Charm and Inquiry, as well as during some combat situations such as when firing an automatic weapon.<br>Measuring a character’s Degrees of Success or Failure is a rather straightforward process. Once the percentage roll for the Test is made, compare the outcome of the roll with the modified Characteristic score. If the roll is equal to or lower than the Characteristic, the character has gained one Degree of Success. Furthermore, every 10 points by which the Test succeeds grants yet another Degree of Success. Conversely, if the roll is higher than the Characteristic, the character has gained one Degree of Failure, and gains an additional Degree of Failure for every additional 10 points rolled over the Characteristic.<hr><hr>During a DARK HERESY game, knowing whether a test has succeeded or failed is often sufficient. There are times, however, when it is helpful to know just how well a character has succeeded at a given task, or just how badly he has failed. This is of particular importance with social skills, such as Charm and Inquiry, as well as during some combat situations such as when firing an automatic weapon, which can score additional hits depending on the roll. Measuring a character’s degrees of success or failure is a rather straightforward process. Once the percentile roll for the test is made, compare the outcome of the roll with the modified characteristic score. If the roll is equal to or lower than the characteristic, the character has gained one degree of success (DoS). He also gains additional degrees of success equal to the tens digit of the target value minus the tens digit of the roll. Conversely, if the roll is higher than the characteristic, the character has gained one degree of failure (DoF), and gains additional degrees of failure equal to the tens digit of the roll minus the tens digit of the target value.">
 										<span class="fa-stack" style="font-size:0.5em">
 											<i style="color:var(--info)" class="fas fa-circle fa-stack-2x"></i>
 											<i class="fas fa-info fa-stack-1x fa-inverse"></i>
@@ -149,15 +151,21 @@
 							</span>
 						</div>
 						<input title="degrees" class="form-control form-control-sm" size="4" id="DEGREESV" type="text" min="1" max="100">
+						<div class="input-group-append">
+							<select id="DEGREE_CALC_TYPE" title="How to calculate additional degrees" class="form-control form-control-sm selectpicker">
+								<option>(T-R)/10</option>
+								<option>(T/10-R/10)</option>
+							</select>
+						</div>
 					</div>
 					<div class="col-md-6 col-12 mb-2">
 						<div style="display: inline-block;" class="custom-control custom-switch mr-2">
 							<input type="checkbox" class="custom-control-input" id="SUM">
 							<label class="custom-control-label" for="SUM">
-								Someer
+								Sum D10
 							</label>
 							<sup>
-								<a style="cursor: help;" tabindex="0" data-toggle="popover" data-content="Someer all rolls startend op het moment dat dit aangevinkt wordt.<br>Klik op som legen of vink uit om opnieuw te beginnen.">
+								<a style="cursor: help;" tabindex="0" data-toggle="popover" data-content="Add D10 rolls together.">
 									<span class="fa-stack" style="font-size:0.5em">
 										<i style="color:var(--info)" class="fas fa-circle fa-stack-2x"></i>
 										<i class="fas fa-info fa-stack-1x fa-inverse"></i>
@@ -171,7 +179,7 @@
 							<div style="display: inline-block;" class="custom-control custom-switch mr-2">
 								<input type="checkbox" class="custom-control-input" id="DEGREESV_MIN">
 								<label class="custom-control-label" for="DEGREESV_MIN">
-									Degrees = min
+									Add. Degrees = min
 								</label>
 								<sup>
 									<a style="cursor: help;" tabindex="0" data-toggle="popover" data-content="<b>Warhammer</b>: neem aantal successen als vervanging wanneer je minder rolt op D10.<br>Wordt genegeerd als er geen success gerolled is.<br>Werkt in beide gevallen als someren uit en aan staat.">
@@ -375,7 +383,7 @@
 		<div class="tab-pane fade" id="pills-links" role="tabpanel" aria-labelledby="pills-links-tab">
 			<div class="p-2 row">
 				<div class="col-12">
-					gebruik Shift om 5x, Ctrl om 10x, Shift+Ctrl om 20x te klikken
+					Shift: roll 5x, Ctrl: roll 10x, Shift+Ctrl: roll 20x
 				</div>
 			</div>
 		</div>
@@ -387,6 +395,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-confirmation2@4.1.0/dist/bootstrap-confirmation.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js" integrity="sha512-f0VlzJbcEB6KiW8ZVtL+5HWPDyW1+nJEjguZ5IVnSQkvZbwBt2RfCBY0CBO1PsMAqxxrG4Di6TfsCPP3ZRwKpA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 	<script src="assets/theme-switch.js"></script>
 </body>
 

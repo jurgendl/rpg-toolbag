@@ -116,6 +116,17 @@ export class RpgData {
 		return this.$LASMASTERY;
 	}
 
+	$DEGREE_CALC_TYPE: string | null = null;
+
+	set DEGREE_CALC_TYPE(DEGREE_CALC_TYPE: string | null) {
+		this.$DEGREE_CALC_TYPE = DEGREE_CALC_TYPE;
+		this.save();
+	}
+
+	get DEGREE_CALC_TYPE(): string | null {
+		return this.$DEGREE_CALC_TYPE;
+	}
+
 	save() {
 		localStorage.setItem("rpg-data", JSON.stringify(this));
 		//console.log("RpgData.save: " + JSON.stringify(this));
@@ -149,6 +160,7 @@ export class Component {
 	$SUM!: JQuery<HTMLInputElement>;
 	$FORMULA_RESULT!: JQuery<HTMLElement>;
 	$DEGREESV!: JQuery<HTMLInputElement>;
+	$DEGREE_CALC_TYPE!: JQuery<HTMLSelectElement>;
 
 	init(): void {
 		this.$ROLL = $("#ROLL");
@@ -173,6 +185,7 @@ export class Component {
 		this.$SUM = $("#SUM");
 		this.$FORMULA_RESULT = $("#FORMULA_RESULT");
 		this.$DEGREESV = $("#DEGREESV");
+		this.$DEGREE_CALC_TYPE = $("#DEGREE_CALC_TYPE");
 
 		const rggdata$: string | null = localStorage.getItem("rpg-data");
 		if (rggdata$) {
@@ -189,6 +202,7 @@ export class Component {
 			rpgData.$REROLLLOWEST = rggdata$$.$REROLLLOWEST;
 			rpgData.$SHOWFORMULA = rggdata$$.$SHOWFORMULA;
 			rpgData.$LASMASTERY = rggdata$$.$LASMASTERY;
+			rpgData.$DEGREE_CALC_TYPE = rggdata$$.$DEGREE_CALC_TYPE;
 			rpgData.historyLines = rggdata$$.historyLines;
 			if (rpgData.historyLines && rpgData.historyLines.length > 0) {
 				this.$LAST_HISTORY.html(rpgData.historyLines[rpgData.historyLines.length - 1]);
@@ -199,6 +213,13 @@ export class Component {
 			//console.log(rpgData);
 		}
 
+		if (rpgData.DEGREE_CALC_TYPE != null) {
+			this.$DEGREE_CALC_TYPE.val(rpgData.DEGREE_CALC_TYPE);
+		}
+		this.$DEGREE_CALC_TYPE.change((ev: JQuery.Event) => {
+			rpgData.DEGREE_CALC_TYPE = this.$DEGREE_CALC_TYPE.val() as string;
+		});
+
 		if (rpgData.MINIMUM != null && (+rpgData.MINIMUM) > 0) {
 			this.$MINIMUM.val(rpgData.MINIMUM);
 			this.$MINIMUM.attr('data-slider-value', rpgData.MINIMUM);
@@ -207,7 +228,6 @@ export class Component {
 
 		(this.$MINIMUM as any).slider();
 		this.$MINIMUM.on("slide", (slideEvt: JQuery.Event) => {
-
 			this.$MINIMUMVal.text((slideEvt as any).value);
 		});
 
@@ -219,7 +239,6 @@ export class Component {
 
 		(this.$FLAT as any).slider();
 		this.$FLAT.on("slide", (slideEvt: JQuery.Event) => {
-
 			this.$FLATVal.text((slideEvt as any).value);
 		});
 
@@ -265,7 +284,6 @@ export class Component {
 
 		this.$LASMASTERY.prop("checked", rpgData.$LASMASTERY != null && rpgData.$LASMASTERY == "true");
 
-
 		this.$SHOWFORMULA.change((ev: JQuery.Event) => {
 			rpgData.SHOWFORMULA = this.$SHOWFORMULA.prop("checked") ? "true" : "false";
 			if (this.$SHOWFORMULA.prop("checked")) {
@@ -275,14 +293,12 @@ export class Component {
 			}
 		});
 
-
 		this.$FLAT.change((ev: JQuery.Event) => {
 			const FLAT_FIELD_VAL = this.$FLAT.val();
 			if (FLAT_FIELD_VAL) {
 				rpgData.FLAT = FLAT_FIELD_VAL.toString();
 			}
 		});
-
 
 		this.$MINIMUM.change((ev: JQuery.Event) => {
 			const MINIMUM_FIELD_VAL = this.$MINIMUM.val();
@@ -291,44 +307,36 @@ export class Component {
 			}
 		});
 
-
 		this.$REROLLLOWEST.change((ev: JQuery.Event) => {
 			rpgData.REROLLLOWEST = this.$REROLLLOWEST.prop("checked") ? "true" : "false";
 		});
-
 
 		this.$LASMASTERY.change((ev: JQuery.Event) => {
 			rpgData.$LASMASTERY = this.$LASMASTERY.prop("checked") ? "true" : "false";
 		});
 
-
 		this.$SUM.change((ev: JQuery.Event) => {
 			rpgData.SUM = this.$SUM.prop("checked") ? "true" : "false";
 		});
 
-
 		this.$DEGREESV_MIN.change((ev: JQuery.Event) => {
 			rpgData.DEGREESV_MIN = this.$DEGREESV_MIN.prop("checked") ? "true" : "false";
 		});
-
 
 		this.$TABSVIEW.change((ev: JQuery.Event) => {
 			this.$TABSVIEW_PARENT.toggleClass("tabsviewoff");
 			rpgData.TABSVIEW = this.$TABSVIEW.prop("checked") ? "true" : "false";
 		});
 
-
 		this.$W40MODE.change((ev: JQuery.Event) => {
 			this.$TABSVIEW_PARENT.toggleClass("w40kmode");
 			rpgData.W40MODE = this.$W40MODE.prop("checked") ? "true" : "false";
 		});
 
-
 		($('[data-toggle="popover"]') as any).popover({
 			"trigger": "focus",
 			"html": true
 		});
-
 
 		($('#clearLatest') as any).confirmation({
 			rootSelector: '#clearLatest',
@@ -337,14 +345,12 @@ export class Component {
 			}
 		});
 
-
 		($('#clearSum') as any).confirmation({
 			rootSelector: '#clearSum',
 			onConfirm: () => {
 				this.clearSum();
 			}
 		});
-
 
 		($('#clearHistory') as any).confirmation({
 			rootSelector: '#clearHistory',
@@ -353,18 +359,15 @@ export class Component {
 			}
 		});
 
-
 		this.$SKILL.change((ev: JQuery.Event) => {
 			this.change();
 			this.saveSkill();
 		});
 
-
 		this.$SKILL.keyup((ev: JQuery.Event) => {
 			this.change();
 			this.saveSkill();
 		});
-
 
 		this.$ROLL.change((ev: JQuery.Event) => {
 			const ROLL_FIELD_VAL = this.$ROLL.val();
@@ -384,11 +387,9 @@ export class Component {
 			}
 		});
 
-
 		this.$FORMULA.change((ev: JQuery.Event) => {
 			this.calcFormula();
 		});
-
 
 		this.$FORMULA.keyup((ev: JQuery.Event) => {
 			this.calcFormula();
@@ -398,11 +399,9 @@ export class Component {
 			this.rollRandom100(event);
 		});
 
-
 		document.getElementById("saveFormulaResult")?.addEventListener("click", (event: MouseEvent) => {
 			this.saveFormulaResult();
 		});
-
 
 		document.getElementById("ACCURATE_ROLL")?.addEventListener("click", (event: MouseEvent) => {
 			this.rollRandomAccurate(10, 'i10');
@@ -619,7 +618,8 @@ export class Component {
 			}
 		});
 		if (withLASMASTERY) {
-			const LASMASTERYVAL = Math.floor((Number(this.$DEGREESV.val()) - 1) / 2);
+			const LASMASTERYVAL = Math.floor(Number(this.$DEGREESV.val()) / 2);
+			console.log("LASMASTERYVAL", this.$DEGREESV.val(), Number(this.$DEGREESV.val()) / 2, Math.floor(Number(this.$DEGREESV.val()) / 2));
 			if (LASMASTERYVAL > 0) {
 				SUM_VALUE += LASMASTERYVAL;
 			}
@@ -635,7 +635,7 @@ export class Component {
 			SUM_TEXT = SUM_TEXT + " + " + Number(this.$FLAT.val()) + " (Flat Bonus)";
 		}
 		if (withLASMASTERY) {
-			const LASMASTERYVAL = Math.floor((Number(this.$DEGREESV.val()) - 1) / 2);
+			const LASMASTERYVAL = Math.floor((Number(this.$DEGREESV.val())) / 2);
 			if (LASMASTERYVAL > 0) {
 				SUM_TEXT = SUM_TEXT + " + " + LASMASTERYVAL + " (Las Mastery)";
 			}
@@ -726,13 +726,13 @@ export class Component {
 				:
 				"<span style='width:65px;' class='badge badge-pill badge-warning'>" + FAILTEXT + "</span>") //
 			+
-			" met " //
+			" with " //
 			+
 			"<span style='width:35px;' class='badge badge-pill badge-dark'>" //
 			+
 			DEGREESV //
 			+
-			"</span> degrees" //
+			"</span> additional degrees" //
 		;
 		this.$LAST_HISTORY.html(historyLine);
 		this.$FULL_HISTORY.prepend("<li class='list-group-item' data-type='roll-item'>" + historyLine + "</li>");
@@ -748,18 +748,39 @@ export class Component {
 		//console.log("ROLL<=SKILL :: " + ROLL + "<=" + SKILL + " :: " + (ROLL <= SKILL));
 		let DEGREESV;
 		let SUCCESS;
+		const by10 = this.$DEGREE_CALC_TYPE.val() == '(T/10-R/10)';
 		if (ROLL <= SKILL) {
-			const diff = (SKILL - ROLL) / 10.0;
-			//console.log("diff=" + diff);
-			DEGREESV = 1 + Math.floor(diff);
+			// success
 			SUCCESS = true;
-			//console.log(SUCCESSTEXT + " +" + DEGREESV + " DEGREESV");
+			if (by10) {
+				const diff = (Math.floor(SKILL / 10.0) - Math.floor(ROLL / 10.0));
+				console.log('SKILL', SKILL, SKILL / 10.0, Math.floor(SKILL / 10.0));
+				console.log('ROLL', ROLL, ROLL / 10.0, Math.floor(ROLL / 10.0));
+				console.log('success', diff);
+				DEGREESV = diff;
+			} else {
+				const diff = Math.floor((SKILL - ROLL) / 10.0);
+				console.log('SKILL', SKILL);
+				console.log('ROLL', ROLL);
+				console.log('success', '(SKILL - ROLL)', (SKILL - ROLL), '(SKILL - ROLL) / 10.0', (SKILL - ROLL) / 10.0, 'Math.floor((SKILL - ROLL) / 10.0))', Math.floor((SKILL - ROLL) / 10.0));
+				DEGREESV = diff;
+			}
 		} else {
-			const diff = (ROLL - SKILL - 1) / 10.0;
-			//console.log("diff=" + diff);
-			DEGREESV = 1 + Math.floor(diff);
+			// fail
 			SUCCESS = false;
-			//console.log(FAILTEXT + " -" + DEGREESV + " DEGREESV");
+			if (by10) {
+				const diff = (Math.floor(ROLL / 10.0) - Math.floor(SKILL / 10.0));
+				console.log('SKILL', SKILL, SKILL / 10.0, Math.floor(SKILL / 10.0));
+				console.log('ROLL', ROLL, ROLL / 10.0, Math.floor(ROLL / 10.0));
+				console.log('fail', diff);
+				DEGREESV = diff;
+			} else {
+				const diff = Math.floor((ROLL - SKILL - 1) / 10.0);
+				console.log('SKILL', SKILL);
+				console.log('ROLL', ROLL);
+				console.log('fail', '(ROLL - SKILL - 1)', (ROLL - SKILL - 1), '(ROLL - SKILL - 1) / 10.0', (ROLL - SKILL - 1) / 10.0, 'Math.floor((ROLL - SKILL - 1) / 10.0))', Math.floor((ROLL - SKILL - 1) / 10.0));
+				DEGREESV = diff;
+			}
 		}
 		this.$RESULT.val(SUCCESS ? SUCCESSTEXT : FAILTEXT);
 		if (SUCCESS) {
