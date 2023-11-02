@@ -174,8 +174,8 @@ input.form-control {
 .list-group-item:first-child {
 	z-index: 2;
 	color: #fff;
-	background-color: #1849d17b;
-	border-color: #1849d17b;
+	background-color: #3956a67b;
+	border-color: #3956a67b;
 }
 
 .list-group-item {
@@ -325,3 +325,12 @@ body.dark {
 }
 
 /* ------------------------------------------------------ */
+
+.text-warning.fas.fa-meteor::before {
+	text-shadow: #000000ad 0px 0 3px;
+	color: orangered;
+}
+body.dark .text-warning.fas.fa-meteor::before {
+	text-shadow: #ffffffc4 0px 0 3px;
+	color: orangered;
+}

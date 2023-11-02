@@ -572,7 +572,7 @@ export class Component {
 					LIST_MIN_VALUE_I = index;
 				}
 			});
-			const MIN_VALUE: number = Math.min(10, Number(this.$DEGREESV.val()));
+			const MIN_VALUE: number = Math.min(10, 1 + Number(this.$DEGREESV.val()));
 			if (LIST_MIN_VALUE < MIN_VALUE) {
 				CONVERTED_LIST[LIST_MIN_VALUE_I] = MIN_VALUE;
 			}
@@ -655,7 +655,7 @@ export class Component {
 			+
 			prepre //
 			+
-			(" op D" + max).padStart(6, " ") //
+			(" on D" + max).padStart(6, " ") //
 			+
 			" &#8669; </span> " //
 			+
@@ -715,7 +715,7 @@ export class Component {
 			+
 			"</span>" //
 			+
-			" op skill " //
+			" on skill " //
 			+
 			prepre + ("" + SKILL).padStart(3, " ") //
 			+

@@ -7,6 +7,7 @@
 <!-- https://github.com/seiyria/bootstrap-slider -->
 <!-- https://seiyria.com/bootstrap-slider/ -->
 <!--https://developer.snapappointments.com/bootstrap-select/examples/-->
+<!--https://atomiks.github.io/tippyjs/-->
 
 <head>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
@@ -30,12 +31,12 @@
 </head>
 
 <body class="overridden">
-    <div id="darkmode-toggle-container">
-        <div class="darkmode">
-            <div class="light fa-solid fa-sun"></div>
-            <div class="dark fa-regular fa-moon"></div>
-        </div>
-    </div>
+	<div id="darkmode-toggle-container">
+		<div class="darkmode">
+			<div class="light fa-solid fa-sun"></div>
+			<div class="dark fa-regular fa-moon"></div>
+		</div>
+	</div>
 	<div style="position: absolute; right: 25px; top: 0px;">
 		<div style="display: none/*inline-block*/;" class="custom-control custom-switch mr-2">
 			<input type="checkbox" class="custom-control-input" id="TABSVIEW">
@@ -43,7 +44,7 @@
 				Tabs
 			</label>
 			<sup class="mr-2">
-				<a style="cursor: help;" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Overzicht in tabs.">
+				<a style="cursor: help;" tabindex="0" data-toggle="popover" data-tippy-content="Show tabs.">
 					<span class="fa-stack" style="font-size:0.5em">
 						<i style="color:var(--info)" class="fas fa-circle fa-stack-2x"></i>
 						<i class="fas fa-info fa-stack-1x fa-inverse"></i>
@@ -57,7 +58,7 @@
 				Formula
 			</label>
 			<sup class="mr-2">
-				<a style="cursor: help;" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="Show formula.">
+				<a style="cursor: help;" tabindex="0" data-toggle="popover" data-tippy-content="Show formula.">
 					<span class="fa-stack" style="font-size:0.5em">
 						<i style="color:var(--info)" class="fas fa-circle fa-stack-2x"></i>
 						<i class="fas fa-info fa-stack-1x fa-inverse"></i>
@@ -69,7 +70,7 @@
 			<input type="checkbox" class="custom-control-input" id="W40MODE">
 			<label class="custom-control-label" for="W40MODE">W40K</label>
 			<sup class="mr-2">
-				<a style="cursor: help;" tabindex="0" data-toggle="popover" data-placement="bottom" data-content="W40K mode.">
+				<a style="cursor: help;" tabindex="0" data-toggle="popover" data-tippy-content="W40K mode.">
 					<span class="fa-stack" style="font-size:0.5em">
 						<i style="color:var(--info)" class="fas fa-circle fa-stack-2x"></i>
 						<i class="fas fa-info fa-stack-1x fa-inverse"></i>
@@ -95,13 +96,13 @@
 				<div class="p-2 row">
 					<div id="FORMULAPARENT" style="display: none;" class="col-12 input-group input-group-sm mb-1">
 						<div class="input-group-prepend">
-							<span style="width: 8em;" class="input-group-text">
+							<span style="width: 8.75em;" class="input-group-text">
 								Formula
 							</span>
 						</div>
 						<input class="form-control form-control-sm" id="FORMULA" type="text">
 						<div class="input-group-append">
-							<span style="width: 8em;" class="input-group-text">
+							<span style="width: 8.75em;" class="input-group-text">
 								=
 								<span id="FORMULA_RESULT"></span>
 								<sup class="only-in-40k-mode">
@@ -117,13 +118,13 @@
 					</div>
 					<div class="only-in-40k-mode col-md-6 col-12 input-group input-group-sm mb-1">
 						<div class="input-group-prepend">
-							<span style="width: 8em;" class="input-group-text">BS/WS/skill</span>
+							<span style="width: 8.75em;" class="input-group-text">BS/WS/skill</span>
 						</div>
 						<input title="skill" id="SKILL" min="1" max="160" type="text" class="form-control form-control-sm">
 					</div>
 					<div class="only-in-40k-mode col-md-6 col-12 input-group input-group-sm mb-1">
 						<div class="input-group-prepend">
-							<span style="width: 8em;" class="input-group-text">
+							<span style="width: 8.75em;" class="input-group-text">
 								Success?
 							</span>
 						</div>
@@ -131,17 +132,17 @@
 					</div>
 					<div class="only-in-40k-mode col-md-6 col-12 input-group input-group-sm mb-1">
 						<div class="input-group-prepend">
-							<button style="width: 8em;" min="0" max="100" class="btn btn-sm btn-outline-secondary" type="button" id="rollRandom100">
+							<button style="width: 8.75em;" min="0" max="100" class="btn btn-sm btn-outline-secondary" type="button" id="rollRandom100">
 								D100
 							</button>
 						</div>
-						<input title="roll" class="form-control form-control-sm" size="4" id="ROLL" type="text" min="1" max="100">
+						<input autocomplete="false" title="roll" class="form-control form-control-sm" size="4" id="ROLL" type="text" min="1" max="100">
 					</div>
 					<div class="only-in-40k-mode col-md-6 col-12 input-group input-group-sm mb-1">
 						<div class="input-group-prepend">
-							<span style="width: 8em;" class="input-group-text">Add. Degrees&nbsp;
+							<span style="width: 8.75em;" class="input-group-text">Add. Degrees&nbsp;
 								<sup>
-									<a style="cursor: help;" tabindex="0" data-toggle="popover" data-content="During an ONLY WAR game, knowing whether a Test has succeeded or failed is typically sufficient. There are times, however, when it is helpful to know just how well a character has succeeded at a given task, or just how badly he has failed. This is of particular importance with social skills, such as Charm and Inquiry, as well as during some combat situations such as when firing an automatic weapon.<br>Measuring a character’s Degrees of Success or Failure is a rather straightforward process. Once the percentage roll for the Test is made, compare the outcome of the roll with the modified Characteristic score. If the roll is equal to or lower than the Characteristic, the character has gained one Degree of Success. Furthermore, every 10 points by which the Test succeeds grants yet another Degree of Success. Conversely, if the roll is higher than the Characteristic, the character has gained one Degree of Failure, and gains an additional Degree of Failure for every additional 10 points rolled over the Characteristic.<hr><hr>During a DARK HERESY game, knowing whether a test has succeeded or failed is often sufficient. There are times, however, when it is helpful to know just how well a character has succeeded at a given task, or just how badly he has failed. This is of particular importance with social skills, such as Charm and Inquiry, as well as during some combat situations such as when firing an automatic weapon, which can score additional hits depending on the roll. Measuring a character’s degrees of success or failure is a rather straightforward process. Once the percentile roll for the test is made, compare the outcome of the roll with the modified characteristic score. If the roll is equal to or lower than the characteristic, the character has gained one degree of success (DoS). He also gains additional degrees of success equal to the tens digit of the target value minus the tens digit of the roll. Conversely, if the roll is higher than the characteristic, the character has gained one degree of failure (DoF), and gains additional degrees of failure equal to the tens digit of the roll minus the tens digit of the target value.">
+									<a style="cursor: help;" tabindex="0" data-tippy-content="During an ONLY WAR game, knowing whether a Test has succeeded or failed is typically sufficient. There are times, however, when it is helpful to know just how well a character has succeeded at a given task, or just how badly he has failed. This is of particular importance with social skills, such as Charm and Inquiry, as well as during some combat situations such as when firing an automatic weapon.<br>Measuring a character’s Degrees of Success or Failure is a rather straightforward process. Once the percentage roll for the Test is made, compare the outcome of the roll with the modified Characteristic score. If the roll is equal to or lower than the Characteristic, the character has gained one Degree of Success. Furthermore, every 10 points by which the Test succeeds grants yet another Degree of Success. Conversely, if the roll is higher than the Characteristic, the character has gained one Degree of Failure, and gains an additional Degree of Failure for every additional 10 points rolled over the Characteristic.<hr><hr>During a DARK HERESY game, knowing whether a test has succeeded or failed is often sufficient. There are times, however, when it is helpful to know just how well a character has succeeded at a given task, or just how badly he has failed. This is of particular importance with social skills, such as Charm and Inquiry, as well as during some combat situations such as when firing an automatic weapon, which can score additional hits depending on the roll. Measuring a character’s degrees of success or failure is a rather straightforward process. Once the percentile roll for the test is made, compare the outcome of the roll with the modified characteristic score. If the roll is equal to or lower than the characteristic, the character has gained one degree of success (DoS). He also gains additional degrees of success equal to the tens digit of the target value minus the tens digit of the roll. Conversely, if the roll is higher than the characteristic, the character has gained one degree of failure (DoF), and gains additional degrees of failure equal to the tens digit of the roll minus the tens digit of the target value.">
 										<span class="fa-stack" style="font-size:0.5em">
 											<i style="color:var(--info)" class="fas fa-circle fa-stack-2x"></i>
 											<i class="fas fa-info fa-stack-1x fa-inverse"></i>
@@ -150,13 +151,13 @@
 								</sup>
 							</span>
 						</div>
-						<input title="degrees" class="form-control form-control-sm" size="4" id="DEGREESV" type="text" min="1" max="100">
-						<div class="input-group-append">
+						<div class="input-group-prepend">
 							<select id="DEGREE_CALC_TYPE" title="How to calculate additional degrees" class="form-control form-control-sm selectpicker">
-								<option>(T-R)/10</option>
-								<option>(T/10-R/10)</option>
+								<option value="(T-R)/10">(Target - Roll) / 10</option>
+								<option value="(T/10-R/10)">(Target / 10) - (Roll / 10)</option>
 							</select>
 						</div>
+						<input title="degrees" class="form-control form-control-sm" size="4" id="DEGREESV" type="text" min="1" max="100">
 					</div>
 					<div class="col-md-6 col-12 mb-2">
 						<div style="display: inline-block;" class="custom-control custom-switch mr-2">
@@ -165,7 +166,7 @@
 								Sum D10
 							</label>
 							<sup>
-								<a style="cursor: help;" tabindex="0" data-toggle="popover" data-content="Add D10 rolls together.">
+								<a style="cursor: help;" tabindex="0" data-tippy-content="Add D10 rolls together since last D100 roll.">
 									<span class="fa-stack" style="font-size:0.5em">
 										<i style="color:var(--info)" class="fas fa-circle fa-stack-2x"></i>
 										<i class="fas fa-info fa-stack-1x fa-inverse"></i>
@@ -182,7 +183,12 @@
 									Add. Degrees = min
 								</label>
 								<sup>
-									<a style="cursor: help;" tabindex="0" data-toggle="popover" data-content="<b>Warhammer</b>: neem aantal successen als vervanging wanneer je minder rolt op D10.<br>Wordt genegeerd als er geen success gerolled is.<br>Werkt in beide gevallen als someren uit en aan staat.">
+									<a style="cursor: help;" tabindex="0" data-tippy-content="The attacker
+									  can replace the result on a single damage die with the number of
+									  degrees of success from his attack roll. If the attack inflicts more
+									  than one hit or more than one die of damage, the attacker can
+									  replace the result on one die of his choice with the degrees of
+									  success from the attack roll.">
 										<span class="fa-stack" style="font-size:0.5em">
 											<i style="color:var(--info)" class="fas fa-circle fa-stack-2x"></i>
 											<i class="fas fa-info fa-stack-1x fa-inverse"></i>
@@ -204,7 +210,7 @@
 								</label>
 								<span class="only-in-40k-mode">
 									<sup>
-										<a style="cursor: help;" tabindex="0" data-toggle="popover" data-content="<b>Warhammer</b>: Tearing weapons are vicious devices, often using multitudes of fast-moving jagged teeth to rip into flesh and bone. These weapons roll one extra die for Damage, and the lowest result is discarded.">
+										<a style="cursor: help;" tabindex="0" data-tippy-content="Tearing weapons are vicious devices, often using multitudes of fast-moving jagged teeth to rip into flesh and bone. These weapons roll one extra die for Damage, and the lowest result is discarded.">
 											<span class="fa-stack" style="font-size:0.5em">
 												<i style="color:var(--info)" class="fas fa-circle fa-stack-2x"></i>
 												<i class="fas fa-info fa-stack-1x fa-inverse"></i>
@@ -224,7 +230,7 @@
 								</label>
 								<span class="only-in-40k-mode">
 									<sup>
-										<a style="cursor: help;" tabindex="0" data-toggle="popover" data-content="<b>Warhammer</b>: Whenever this character makes an attack with a las weapon (such as a lasgun, lascarbine, laspistol, or lascannon), he deals +1 additional Damage for every two Degrees of Success he scores on the Ballistic Skill Test beyond the first.">
+										<a style="cursor: help;" tabindex="0" data-tippy-content="Whenever this character makes an attack with a las weapon (such as a lasgun, lascarbine, laspistol, or lascannon), he deals +1 additional Damage for every two Degrees of Success he scores on the Ballistic Skill Test beyond the first.">
 											<span class="fa-stack" style="font-size:0.5em">
 												<i style="color:var(--info)" class="fas fa-circle fa-stack-2x"></i>
 												<i class="fas fa-info fa-stack-1x fa-inverse"></i>
@@ -238,9 +244,9 @@
 					<div class="col-md-6 col-12 mb-2">
 						<div class="input-group input-group-sm">
 							<div class="input-group-prepend">
-								<span style="width: 8em;" class="input-group-text only-in-40k-mode">Proven
+								<span style="width: 8.75em;" class="input-group-text only-in-40k-mode">Proven
 									<sup>
-										<a style="cursor: help;" tabindex="0" data-toggle="popover" data-content="<b>Warhammer</b>: Weapons with a Proven Quality always inflict massive trauma and treat any dice roll for Damage lower than the Proven rating (as indicated by the number in parentheses) as if it were the Proven rating instead. Thus, a Proven (3) weapon would treat any die roll of 1 or 2 as a 3 for the purposes of calculating Damage.">
+										<a style="cursor: help;" tabindex="0" data-tippy-content="Weapons with a Proven Quality always inflict massive trauma and treat any dice roll for Damage lower than the Proven rating (as indicated by the number in parentheses) as if it were the Proven rating instead. Thus, a Proven (3) weapon would treat any die roll of 1 or 2 as a 3 for the purposes of calculating Damage.">
 											<span class="fa-stack" style="font-size:0.5em">
 												<i style="color:var(--info)" class="fas fa-circle fa-stack-2x"></i>
 												<i class="fas fa-info fa-stack-1x fa-inverse"></i>
@@ -248,7 +254,7 @@
 										</a>
 									</sup>
 								</span>
-								<span style="width: 8em;" class="input-group-text hide-in-40k-mode">
+								<span style="width: 8.75em;" class="input-group-text hide-in-40k-mode">
 									Minimum
 								</span>
 							</div>
@@ -256,7 +262,7 @@
 								<input title="minimum" style="width: 100%;" id="MINIMUM" type="text" value="0" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="0">
 							</div>
 							<div class="input-group-append">
-								<span style="width: 8em;" class="input-group-text">
+								<span style="width: 8.75em;" class="input-group-text">
 									<span id="MINIMUMVal">0</span>
 								</span>
 							</div>
@@ -265,13 +271,23 @@
 					<div class="col-md-6 col-12 mb-2">
 						<div class="input-group input-group-sm">
 							<div class="input-group-prepend">
-								<span style="width: 8em;" class="input-group-text">Flat bonus</span>
+								<span style="width: 8.75em;" class="input-group-text">
+									Bonus damage
+									<sup>
+										<a style="cursor: help;" tabindex="0" data-toggle="popover" data-tippy-content="Fixed damage is always added to each damage roll.">
+											<span class="fa-stack" style="font-size:0.5em">
+												<i style="color:var(--info)" class="fas fa-circle fa-stack-2x"></i>
+												<i class="fas fa-info fa-stack-1x fa-inverse"></i>
+											</span>
+										</a>
+									</sup>
+								</span>
 							</div>
 							<div style="padding: 3px 15px;" class="form-control form-control-sm">
-								<input title="flat bonus" style="width: 100%;" id="FLAT" type="text" value="0" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="0">
+								<input style="width: 100%;" id="FLAT" type="text" value="0" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="0">
 							</div>
 							<div class="input-group-append">
-								<span style="width: 8em;" class="input-group-text">
+								<span style="width: 8.75em;" class="input-group-text">
 									<span id="FLATVal">0</span>
 								</span>
 							</div>
@@ -279,32 +295,32 @@
 					</div>
 					<div class="hide-in-40k-mode col-md-6 col-12 input-group input-group-sm mb-2">
 						<div class="input-group-prepend">
-							<button style="width: 8em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="100">D100</button>
+							<button style="width: 8.75em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="100">D100</button>
 						</div>
 						<input readonly="readonly" class="form-control form-control-sm" size="4" id="i100" type="text">
 					</div>
 					<div class="hide-in-40k-mode col-md-6 col-12 input-group input-group-sm mb-2">
 						<div class="input-group-prepend">
-							<button style="width: 8em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="20">D20</button>
+							<button style="width: 8.75em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="20">D20</button>
 						</div>
 						<input readonly="readonly" class="form-control form-control-sm" size="4" id="i20" type="text">
 					</div>
 					<div class="hide-in-40k-mode col-md-6 col-12 input-group input-group-sm mb-2">
 						<div class="input-group-prepend">
-							<button style="width: 8em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="12">D12</button>
+							<button style="width: 8.75em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="12">D12</button>
 						</div>
 						<input readonly="readonly" class="form-control form-control-sm" size="4" id="i12" type="text">
 					</div>
 					<div class="col-md-6 col-12 input-group input-group-sm mb-2">
 						<div class="input-group-prepend">
-							<button style="width: 8em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="10">D10</button>
+							<button style="width: 8.75em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="10">D10</button>
 						</div>
 						<input title="d10" readonly="readonly" class="form-control form-control-sm" size="4" id="i10" type="text">
 						<div class="input-group-append only-in-40k-mode">
-							<span style="width: 8em;" class="input-group-text">
+							<span style="width: 8.75em;" class="input-group-text">
 								Accurate
 								<sup style="display: inline-block;" class="">
-									<a style="cursor: help;" tabindex="0" data-toggle="popover" data-content="<b>Warhammer</b>: Accurate: When firing a single shot from a single Basic weapon with the Accurate Quality and benefiting from the Aim Action, the attack inflicts an extra 1d10 of Damage for every two Degrees of Success, to a maximum of an extra 2d10.">
+									<a style="cursor: help;" tabindex="0" data-tippy-content="Accurate: When firing a single shot from a single Basic weapon with the Accurate Quality and benefiting from the Aim Action, the attack inflicts an extra 1d10 of Damage for every two Degrees of Success, to a maximum of an extra 2d10.">
 										<span class="fa-stack" style="font-size:0.5em">
 											<i style="color:var(--info)" class="fas fa-circle fa-stack-2x"></i>
 											<i class="fas fa-info fa-stack-1x fa-inverse"></i>
@@ -314,42 +330,42 @@
 							</span>
 						</div>
 						<div class="only-in-40k-mode input-group-append">
-							<button id="ACCURATE_ROLL" style="width: 8em;" class="btn btn-sm btn-outline-secondary" type="button" accurate-dice="0">-</button>
+							<button id="ACCURATE_ROLL" style="width: 8.75em;" class="btn btn-sm btn-outline-secondary" type="button" accurate-dice="0">-</button>
 						</div>
 					</div>
 					<div class="hide-in-40k-mode col-md-6 col-12 input-group input-group-sm mb-2">
 						<div class="input-group-prepend">
-							<button style="width: 8em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="8">D8</button>
+							<button style="width: 8.75em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="8">D8</button>
 						</div>
 						<input readonly="readonly" class="form-control form-control-sm" size="4" id="i8" type="text">
 					</div>
 					<div class="hide-in-40k-mode col-md-6 col-12 input-group input-group-sm mb-2">
 						<div class="input-group-prepend">
-							<button style="width: 8em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="6">D6</button>
+							<button style="width: 8.75em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="6">D6</button>
 						</div>
 						<input readonly="readonly" class="form-control form-control-sm" size="4" id="i6" type="text">
 					</div>
 					<div class="hide-in-40k-mode col-md-6 col-12 input-group input-group-sm mb-2">
 						<div class="input-group-prepend">
-							<button style="width: 8em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="5">D5</button>
+							<button style="width: 8.75em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="5">D5</button>
 						</div>
 						<input readonly="readonly" class="form-control form-control-sm" size="4" id="i5" type="text">
 					</div>
 					<div class="hide-in-40k-mode col-md-6 col-12 input-group input-group-sm mb-2">
 						<div class="input-group-prepend">
-							<button style="width: 8em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="4">D4</button>
+							<button style="width: 8.75em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="4">D4</button>
 						</div>
 						<input readonly="readonly" class="form-control form-control-sm" size="4" id="i4" type="text">
 					</div>
 					<div class="hide-in-40k-mode col-md-6 col-12 input-group input-group-sm mb-2">
 						<div class="input-group-prepend">
-							<button style="width: 8em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="3">D3</button>
+							<button style="width: 8.75em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="3">D3</button>
 						</div>
 						<input readonly="readonly" class="form-control form-control-sm" size="4" id="i3" type="text">
 					</div>
 					<div class="hide-in-40k-mode col-md-6 col-12 input-group input-group-sm mb-2">
 						<div class="input-group-prepend">
-							<button style="width: 8em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="2">D2</button>
+							<button style="width: 8.75em;" class="btn btn-sm btn-outline-secondary" type="button" rollRandom="2">D2</button>
 						</div>
 						<input readonly="readonly" class="form-control form-control-sm" size="4" id="i2" type="text">
 					</div>
@@ -391,12 +407,17 @@
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.4/js/sb-admin-2.js" integrity="sha512-M82XdXhPLLSki+Ld1MsafNzOgHQB3txZr8+SQlGXSwn6veeqtYhPLbQeAfk9Y/Q9/gXcfa1jWT4YYUeoei6Uow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"	crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-confirmation2@4.1.0/dist/bootstrap-confirmation.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js" integrity="sha512-f0VlzJbcEB6KiW8ZVtL+5HWPDyW1+nJEjguZ5IVnSQkvZbwBt2RfCBY0CBO1PsMAqxxrG4Di6TfsCPP3ZRwKpA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 	<script src="assets/theme-switch.js"></script>
+	<!-- -->
+	<script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+	<script>tippy('[data-tippy-content]', {placement: 'auto', maxWidth: 500, trigger: 'click', allowHTML: true});</script>
+	<!-- -->
 </body>
 
 </html>
