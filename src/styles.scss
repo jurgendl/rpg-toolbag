@@ -295,10 +295,6 @@ body {
 	border: 1.5px solid rgba(255, 255, 255, .5);
 }
 
-.fa-meteor {
-	text-shadow: 0.8px 0.8px #00000080;
-}
-
 /* ------------------------------------------------------ */
 
 #darkmode-toggle-container {
@@ -326,6 +322,15 @@ body.dark {
 
 /* ------------------------------------------------------ */
 
+.fa-meteor,
+.fa-sad-tear {
+	margin: 0 0 0 5px;
+}
+
+.fa-sign-out-alt {
+	margin: 0 3px 0 5px;
+}
+
 .fa-meteor::before {
 	color: chartreuse;
 }
@@ -350,7 +355,6 @@ body.dark {
 	.fa-sign-out-alt::before {
 		text-shadow: #ffffffc4 0px 0 3px;
 	}
-
 }
 
 

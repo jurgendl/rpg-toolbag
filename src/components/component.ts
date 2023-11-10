@@ -604,10 +604,10 @@ export class Component {
 				if (rpgData.SUM_LIST[index] != item) {
 					if (ARR_ALL_EQ) {
 						//SUM_TEXT = SUM_TEXT + rpgData.SUM_LIST[index] + "&#x21E8;" + item + "";
-						SUM_TEXT += `${rpgData.SUM_LIST[index]} <i class="fas fa-sign-out-alt"></i> ${item}`;
+						SUM_TEXT += `${rpgData.SUM_LIST[index]}<i class="fas fa-sign-out-alt"></i>${item}`;
 					} else {
 						//SUM_TEXT = SUM_TEXT + rpgData.SUM_LIST[index] + "&#x21E8;" + item + "/[D" + rpgData.D_LIST[index] + "]";
-						SUM_TEXT += `${rpgData.SUM_LIST[index]} <i class="fas fa-sign-out-alt"></i> ${item}/[D${rpgData.D_LIST[index]}]`;
+						SUM_TEXT += `${rpgData.SUM_LIST[index]}<i class="fas fa-sign-out-alt"></i>${item}/[D${rpgData.D_LIST[index]}]`;
 					}
 				} else {
 					if (ARR_ALL_EQ) {
@@ -622,7 +622,7 @@ export class Component {
 				if (this.$W40MODE.prop("checked")) {
 					if (index == 0 && rpgData.SUM_LIST[index] == 10) {
 						//SUM_TEXT = SUM_TEXT + "<i style='margin-left:2px;' class='fas fa-meteor'></i>";
-						SUM_TEXT += `<i style='margin-left:2px;' class='fas fa-meteor'></i>`;
+						SUM_TEXT += `<i class='fas fa-meteor'></i>`;
 					}
 				} else {
 					console.log('rpgData.SUM_LIST', rpgData.SUM_LIST);
@@ -632,10 +632,10 @@ export class Component {
 					if (rpgData.D_LIST[index] == 20) {
 						if (rpgData.SUM_LIST[index] == 20) {
 							//SUM_TEXT = SUM_TEXT + "<i style='margin-left:2px;' class='fas fa-meteor'></i>";
-							SUM_TEXT += `<i style='margin-left:2px;' class='fas fa-meteor'></i>`;
+							SUM_TEXT += `<i class='fas fa-meteor'></i>`;
 						} else if (rpgData.SUM_LIST[index] == 1) {
 							//SUM_TEXT = SUM_TEXT + "<i style='margin-left:2px;' class='far fa-sad-tear'></i>";
-							SUM_TEXT += `<i style='margin-left:2px;' class='far fa-sad-tear'></i>`;
+							SUM_TEXT += `<i class='far fa-sad-tear'></i>`;
 						}
 					}
 				}
