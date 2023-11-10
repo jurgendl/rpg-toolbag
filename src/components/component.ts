@@ -604,10 +604,10 @@ export class Component {
 				if (rpgData.SUM_LIST[index] != item) {
 					if (ARR_ALL_EQ) {
 						//SUM_TEXT = SUM_TEXT + rpgData.SUM_LIST[index] + "&#x21E8;" + item + "";
-						SUM_TEXT += `${rpgData.SUM_LIST[index]}&#x21E8;${item}`;
+						SUM_TEXT += `${rpgData.SUM_LIST[index]} <i class="fas fa-sign-out-alt"></i> ${item}`;
 					} else {
 						//SUM_TEXT = SUM_TEXT + rpgData.SUM_LIST[index] + "&#x21E8;" + item + "/[D" + rpgData.D_LIST[index] + "]";
-						SUM_TEXT += `${rpgData.SUM_LIST[index]}&#x21E8;${item}/[D${rpgData.D_LIST[index]}]`;
+						SUM_TEXT += `${rpgData.SUM_LIST[index]} <i class="fas fa-sign-out-alt"></i> ${item}/[D${rpgData.D_LIST[index]}]`;
 					}
 				} else {
 					if (ARR_ALL_EQ) {
@@ -652,31 +652,31 @@ export class Component {
 		if (withFLAT) {
 			SUM_VALUE += Number(this.$FLAT.val());
 		}
-		SUM_TEXT = "<span style='width:35px;' class='badge badge-pill badge-info'>" + SUM_VALUE + "</span>" + " = &Sigma;[#" + rpgData.SUM_LIST.length + "](" + SUM_TEXT + ")";
-		//SUM_TEXT = `<span style="width:35px;" class="badge badge-pill badge-info">${SUM_VALUE} = &Sigma;[#${rpgData.SUM_LIST.length}](${SUM_TEXT})`;
+		//SUM_TEXT = "<span style='width:35px;' class='badge badge-pill badge-info'>" + SUM_VALUE + "</span>" + " = &Sigma;[#" + rpgData.SUM_LIST.length + "](" + SUM_TEXT + ")";
+		SUM_TEXT = `<span style='width:35px;' class='badge badge-pill badge-info'>${SUM_VALUE}</span> = &Sigma;[#${rpgData.SUM_LIST.length}](${SUM_TEXT})`;
 		if (ARR_ALL_EQ) {
-			SUM_TEXT = SUM_TEXT + "/[D" + rpgData.D_LIST[0] + "]";
-			//SUM_TEXT += `/[D${rpgData.D_LIST[0]}]`;
+			//SUM_TEXT = SUM_TEXT + "/[D" + rpgData.D_LIST[0] + "]";
+			SUM_TEXT += `/[D${rpgData.D_LIST[0]}]`;
 		}
 		if (withFLAT) {
-			SUM_TEXT = SUM_TEXT + " + " + Number(this.$FLAT.val()) + " (Flat Bonus)";
-			//SUM_TEXT += ` + ${Number(this.$FLAT.val())} (Flat Bonus)`;
+			//SUM_TEXT = SUM_TEXT + " + " + Number(this.$FLAT.val()) + " (Flat Bonus)";
+			SUM_TEXT += ` + ${Number(this.$FLAT.val())} (Flat Bonus)`;
 		}
 		if (withLASMASTERY) {
 			const LASMASTERYVAL = Math.floor((Number(this.$DEGREESV.val())) / 2);
 			if (LASMASTERYVAL > 0) {
-				SUM_TEXT = SUM_TEXT + " + " + LASMASTERYVAL + " (Las Mastery)";
-				//SUM_TEXT += ` + ${LASMASTERYVAL} (Las Mastery)`;
+				//SUM_TEXT = SUM_TEXT + " + " + LASMASTERYVAL + " (Las Mastery)";
+				SUM_TEXT += ` + ${LASMASTERYVAL} (Las Mastery)`;
 			}
 		}
 		const historyLine = new Date().toLocaleTimeString(this.getNavigatorLanguages()[0]) //
 			+ " &#8669; roll " //
 			+ "<span style='display:inline;color:inherit;font-family:monospace;'>" //
-			/****/+ "<span style='width:35px;' class='badge badge-pill badge-info'>" + ("" + rnd).padStart(3, " ") + "</span>" //
+			/****/ + "<span style='width:35px;' class='badge badge-pill badge-info'>" + ("" + rnd).padStart(3, " ") + "</span>" //
 			+ "</span>" //
 			+ " " //
 			+ "<span style='display:inline;color:inherit;font-family:monospace;'>" //
-			/****/+ (" on D" + max).padStart(6, " ") + " &#8669; " //
+			/****/ + (" on D" + max).padStart(6, " ") + " &#8669; " //
 			+ "</span>" //
 			+ " " + SUM_TEXT;
 		this.$LAST_HISTORY.html(historyLine);

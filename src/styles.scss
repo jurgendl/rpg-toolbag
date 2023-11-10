@@ -326,23 +326,33 @@ body.dark {
 
 /* ------------------------------------------------------ */
 
-.fas.fa-meteor::before {
-	text-shadow: #000000ad 0px 0 3px;
-	color: chartreuse;
-}
-body.dark .fas.fa-meteor::before {
-	text-shadow: #ffffffc4 0px 0 3px;
+.fa-meteor::before {
 	color: chartreuse;
 }
 
-.far.fa-sad-tear::before {
-	text-shadow: #000000ad 0px 0 3px;
+.fa-sad-tear::before {
 	color: orangered;
 }
-body.dark .far.fa-sad-tear::before {
-	text-shadow: #ffffffc4 0px 0 3px;
-	color: orangered;
+
+.fa-sign-out-alt::before {
+	color: aqua;
 }
+
+.fa-meteor::before,
+.fa-sad-tear::before,
+.fa-sign-out-alt::before {
+	text-shadow: #000000eb 0px 0 3px;
+}
+
+body.dark {
+	.fa-meteor::before,
+	.fa-sad-tear::before,
+	.fa-sign-out-alt::before {
+		text-shadow: #ffffffc4 0px 0 3px;
+	}
+
+}
+
 
 /* ------------------------------------------------------ */
 /*
