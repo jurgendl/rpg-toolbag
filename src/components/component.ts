@@ -227,9 +227,15 @@ export class Component {
 		}
 
 		(this.$MINIMUM as any).slider();
-		this.$MINIMUM.on("slide", (slideEvt: JQuery.Event) => {
-			this.$MINIMUMVal.text((slideEvt as any).value);
+		this.$MINIMUM.on("change", (slideEvt: JQuery.Event) => {
+			this.$MINIMUMVal.text((slideEvt as any).value.newValue);
 		});
+		this.$MINIMUM.on("input", (slideEvt: JQuery.Event) => {
+			this.$MINIMUMVal.text((slideEvt as any).value.newValue);
+		});
+		/*this.$MINIMUM.on("slide", (slideEvt: JQuery.Event) => {
+			this.$MINIMUMVal.text((slideEvt as any).value);
+		});*/
 
 		if (rpgData.FLAT != null && (+rpgData.FLAT) > 0) {
 			this.$FLAT.val(rpgData.FLAT);
@@ -238,9 +244,15 @@ export class Component {
 		}
 
 		(this.$FLAT as any).slider();
-		this.$FLAT.on("slide", (slideEvt: JQuery.Event) => {
-			this.$FLATVal.text((slideEvt as any).value);
+		this.$FLAT.on("change", (slideEvt: JQuery.Event) => {
+			this.$FLATVal.text((slideEvt as any).value.newValue);
 		});
+		this.$FLAT.on("input", (slideEvt: JQuery.Event) => {
+			this.$FLATVal.text((slideEvt as any).value.newValue);
+		});
+		/*this.$FLAT.on("slide", (slideEvt: JQuery.Event) => {
+			this.$FLATVal.text((slideEvt as any).value);
+		});*/
 
 		if (rpgData.SKILL != null) {
 			//(<HTMLInputElement>document.getElementById("SKILL")).value = rpgData.SKILL;
@@ -525,9 +537,7 @@ export class Component {
 		const rnd = this.getRandomInt(max) + 1;
 		(<HTMLInputElement>document.getElementById(input)).value = rnd.toString();
 		const isSUM = this.$SUM.prop("checked");
-		if (!isSUM) {
-			this.clearSum();
-		}
+		if (!isSUM) this.clearSum();
 		rpgData.SUM_LIST.push(rnd);
 		rpgData.D_LIST.push(max);
 		rpgData.save();
@@ -544,7 +554,6 @@ export class Component {
 		if (withREROLLLOWEST) {
 			let LIST_MIN_VALUE = 9999999;
 			let LIST_MIN_VALUE_I = 9999999;
-
 			CONVERTED_LIST.forEach((item, index, array) => {
 				if (item < LIST_MIN_VALUE) {
 					LIST_MIN_VALUE = item;
@@ -555,7 +564,6 @@ export class Component {
 		}
 		if (withMINIMUM) {
 			const MINIMUM = Number(this.$MINIMUM.val());
-
 			CONVERTED_LIST.forEach((item, index, array) => {
 				if (item < MINIMUM && item != -1) {
 					CONVERTED_LIST[index] = MINIMUM;
@@ -565,7 +573,6 @@ export class Component {
 		if (withDEGREESV_MIN) {
 			let LIST_MIN_VALUE = 9999999;
 			let LIST_MIN_VALUE_I = 9999999;
-
 			CONVERTED_LIST.forEach((item, index, array) => {
 				if (item < LIST_MIN_VALUE && item != -1) {
 					LIST_MIN_VALUE = item;
