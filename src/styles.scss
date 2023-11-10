@@ -326,11 +326,20 @@ body.dark {
 
 /* ------------------------------------------------------ */
 
-.text-warning.fas.fa-meteor::before {
+.fas.fa-meteor::before {
+	text-shadow: #000000ad 0px 0 3px;
+	color: chartreuse;
+}
+body.dark .fas.fa-meteor::before {
+	text-shadow: #ffffffc4 0px 0 3px;
+	color: chartreuse;
+}
+
+.far.fa-sad-tear::before {
 	text-shadow: #000000ad 0px 0 3px;
 	color: orangered;
 }
-body.dark .text-warning.fas.fa-meteor::before {
+body.dark .far.fa-sad-tear::before {
 	text-shadow: #ffffffc4 0px 0 3px;
 	color: orangered;
 }

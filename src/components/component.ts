@@ -516,19 +516,19 @@ export class Component {
 	}
 
 	rollRandom(event: MouseEvent | null, max: number, input: string) {
-		let iii = 1;
+		let repeat = 1;
 		if (event) {
 			//console.log("SHIFT:" + event.shiftKey);
 			//console.log("CTRL:" + event.ctrlKey);
 			if (event.ctrlKey && event.shiftKey) {
-				iii = 20;
+				repeat = 20;
 			} else if (event.ctrlKey) {
-				iii = 10;
+				repeat = 10;
 			} else if (event.shiftKey) {
-				iii = 5;
+				repeat = 5;
 			}
 		}
-		for (let xi = 0; xi < iii; xi++) {
+		while (repeat-- > 0) {
 			this._rollRandom(max, input);
 		}
 	}
@@ -536,7 +536,8 @@ export class Component {
 	_rollRandom(max: number, input: string) {
 		const rnd = this.getRandomInt(max) + 1;
 		(<HTMLInputElement>document.getElementById(input)).value = rnd.toString();
-		const isSUM = this.$SUM.prop("checked");
+		const isD100or20 = max == 100 || max == 20;
+		const isSUM = !isD100or20 && this.$SUM.prop("checked");
 		if (!isSUM) this.clearSum();
 		rpgData.SUM_LIST.push(rnd);
 		rpgData.D_LIST.push(max);
@@ -546,8 +547,8 @@ export class Component {
 		const withDEGREESV_MIN = tmpW && this.$DEGREESV_MIN.prop("checked");
 		const withREROLLLOWEST = this.$REROLLLOWEST.prop("checked");
 		const withLASMASTERY = tmpW && this.$LASMASTERY.prop("checked");
-		const withMINIMUM = Number(this.$MINIMUM.val()) > 0;
-		const withFLAT = Number(this.$FLAT.val()) > 0;
+		const withMINIMUM = isD100or20 ? 0 : Number(this.$MINIMUM.val()) > 0;
+		const withFLAT = isD100or20 ? 0 : Number(this.$FLAT.val()) > 0;
 		let SUM_VALUE = 0;
 		let SUM_TEXT = "";
 		const CONVERTED_LIST = [...rpgData.SUM_LIST];
@@ -586,39 +587,56 @@ export class Component {
 		}
 		SUM_TEXT = "";
 		SUM_VALUE = 0;
-
 		CONVERTED_LIST.forEach((item, index, array) => {
 			if (index > 0) {
-				SUM_TEXT = SUM_TEXT + " + ";
+				//SUM_TEXT = SUM_TEXT + " + ";
+				SUM_TEXT += ` + `;
 			}
 			if (item == -1) {
 				if (ARR_ALL_EQ) {
-					SUM_TEXT = SUM_TEXT + "<span class='cross'>" + rpgData.SUM_LIST[index] + "</span>";
+					//SUM_TEXT = SUM_TEXT + "<span class='cross'>" + rpgData.SUM_LIST[index] + "</span>";
+					SUM_TEXT += `${SUM_TEXT}<span class='cross'>${rpgData.SUM_LIST[index]}</span>`;
 				} else {
-					SUM_TEXT = SUM_TEXT + "<span class='cross'>" + rpgData.SUM_LIST[index] + "/[D" + rpgData.D_LIST[index] + "]</span>";
+					//SUM_TEXT = SUM_TEXT + "<span class='cross'>" + rpgData.SUM_LIST[index] + "/[D" + rpgData.D_LIST[index] + "]</span>";
+					SUM_TEXT += `<span class='cross'>${rpgData.SUM_LIST[index]}/[D${rpgData.D_LIST[index]}]</span>`;
 				}
 			} else {
 				if (rpgData.SUM_LIST[index] != item) {
 					if (ARR_ALL_EQ) {
-						SUM_TEXT = SUM_TEXT + rpgData.SUM_LIST[index] + "&#x21E8;" + item + "";
+						//SUM_TEXT = SUM_TEXT + rpgData.SUM_LIST[index] + "&#x21E8;" + item + "";
+						SUM_TEXT += `${rpgData.SUM_LIST[index]}&#x21E8;${item}`;
 					} else {
-						SUM_TEXT = SUM_TEXT + rpgData.SUM_LIST[index] + "&#x21E8;" + item + "/[D" + rpgData.D_LIST[index] + "]";
+						//SUM_TEXT = SUM_TEXT + rpgData.SUM_LIST[index] + "&#x21E8;" + item + "/[D" + rpgData.D_LIST[index] + "]";
+						SUM_TEXT += `${rpgData.SUM_LIST[index]}&#x21E8;${item}/[D${rpgData.D_LIST[index]}]`;
 					}
 				} else {
 					if (ARR_ALL_EQ) {
-						SUM_TEXT = SUM_TEXT + item;
+						//SUM_TEXT = SUM_TEXT + item;
+						SUM_TEXT += `${item}`;
 					} else {
-						SUM_TEXT = SUM_TEXT + item + "/[D" + rpgData.D_LIST[index] + "]";
+						//SUM_TEXT = SUM_TEXT + item + "/[D" + rpgData.D_LIST[index] + "]";
+						SUM_TEXT += `${item}/[D${rpgData.D_LIST[index]}]`;
 					}
 				}
 				// CRIT
 				if (this.$W40MODE.prop("checked")) {
 					if (index == 0 && rpgData.SUM_LIST[index] == 10) {
-						SUM_TEXT = SUM_TEXT + "<i style='margin-left:2px;' class='fas fa-meteor text-warning'></i>";
+						//SUM_TEXT = SUM_TEXT + "<i style='margin-left:2px;' class='fas fa-meteor'></i>";
+						SUM_TEXT += `<i style='margin-left:2px;' class='fas fa-meteor'></i>`;
 					}
 				} else {
-					if (rpgData.SUM_LIST[index] == 20 && rpgData.D_LIST[index] == 20) {
-						SUM_TEXT = SUM_TEXT + "<i style='margin-left:2px;' class='fas fa-meteor text-warning'></i>";
+					console.log('rpgData.SUM_LIST', rpgData.SUM_LIST);
+					console.log('rpgData.D_LIST', rpgData.D_LIST);
+					console.log('rpgData.SUM_LIST[index]', rpgData.SUM_LIST[index]);
+					console.log('rpgData.D_LIST[index]', rpgData.D_LIST[index]);
+					if (rpgData.D_LIST[index] == 20) {
+						if (rpgData.SUM_LIST[index] == 20) {
+							//SUM_TEXT = SUM_TEXT + "<i style='margin-left:2px;' class='fas fa-meteor'></i>";
+							SUM_TEXT += `<i style='margin-left:2px;' class='fas fa-meteor'></i>`;
+						} else if (rpgData.SUM_LIST[index] == 1) {
+							//SUM_TEXT = SUM_TEXT + "<i style='margin-left:2px;' class='far fa-sad-tear'></i>";
+							SUM_TEXT += `<i style='margin-left:2px;' class='far fa-sad-tear'></i>`;
+						}
 					}
 				}
 				SUM_VALUE += item;
@@ -635,40 +653,35 @@ export class Component {
 			SUM_VALUE += Number(this.$FLAT.val());
 		}
 		SUM_TEXT = "<span style='width:35px;' class='badge badge-pill badge-info'>" + SUM_VALUE + "</span>" + " = &Sigma;[#" + rpgData.SUM_LIST.length + "](" + SUM_TEXT + ")";
+		//SUM_TEXT = `<span style="width:35px;" class="badge badge-pill badge-info">${SUM_VALUE} = &Sigma;[#${rpgData.SUM_LIST.length}](${SUM_TEXT})`;
 		if (ARR_ALL_EQ) {
 			SUM_TEXT = SUM_TEXT + "/[D" + rpgData.D_LIST[0] + "]";
+			//SUM_TEXT += `/[D${rpgData.D_LIST[0]}]`;
 		}
 		if (withFLAT) {
 			SUM_TEXT = SUM_TEXT + " + " + Number(this.$FLAT.val()) + " (Flat Bonus)";
+			//SUM_TEXT += ` + ${Number(this.$FLAT.val())} (Flat Bonus)`;
 		}
 		if (withLASMASTERY) {
 			const LASMASTERYVAL = Math.floor((Number(this.$DEGREESV.val())) / 2);
 			if (LASMASTERYVAL > 0) {
 				SUM_TEXT = SUM_TEXT + " + " + LASMASTERYVAL + " (Las Mastery)";
+				//SUM_TEXT += ` + ${LASMASTERYVAL} (Las Mastery)`;
 			}
 		}
-		const prepre = "<span style='display:inline;color:inherit;font-family:monospace;'>";
 		const historyLine = new Date().toLocaleTimeString(this.getNavigatorLanguages()[0]) //
-			+
-			" &#8669; roll " //
-			+
-			prepre //
-			+
-			"<span style='width:35px;' class='badge badge-pill badge-info'>" + ("" + rnd).padStart(3, " ") + "</span>" //
-			+
-			"</span>" //
-			+
-			" " //
-			+
-			prepre //
-			+
-			(" on D" + max).padStart(6, " ") //
-			+
-			" &#8669; </span> " //
-			+
-			SUM_TEXT;
+			+ " &#8669; roll " //
+			+ "<span style='display:inline;color:inherit;font-family:monospace;'>" //
+			/****/+ "<span style='width:35px;' class='badge badge-pill badge-info'>" + ("" + rnd).padStart(3, " ") + "</span>" //
+			+ "</span>" //
+			+ " " //
+			+ "<span style='display:inline;color:inherit;font-family:monospace;'>" //
+			/****/+ (" on D" + max).padStart(6, " ") + " &#8669; " //
+			+ "</span>" //
+			+ " " + SUM_TEXT;
 		this.$LAST_HISTORY.html(historyLine);
 		this.$FULL_HISTORY.prepend("<li class='list-group-item' data-type='array-item'>" + historyLine + "</li>");
+		if (!isSUM) this.clearSum();
 		rpgData.historyLines.push(historyLine);
 		rpgData.save();
 	}
