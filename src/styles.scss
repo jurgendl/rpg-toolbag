@@ -297,31 +297,6 @@ body {
 
 /* ------------------------------------------------------ */
 
-#darkmode-toggle-container {
-	position: fixed;
-	top: -1px;
-	right: 10px;
-	z-index: 1000;
-}
-
-body {
-	div.darkmode {
-		display: inline-block;
-		cursor: pointer;
-	}
-
-	&.dark .darkmode .light,
-	&:not(.dark) .darkmode .dark {
-		display: none;
-	}
-}
-
-body.dark {
-
-}
-
-/* ------------------------------------------------------ */
-
 .fa-meteor,
 .fa-sad-tear {
 	margin: 0 0 0 5px;

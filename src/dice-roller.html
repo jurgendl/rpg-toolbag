@@ -31,12 +31,6 @@
 </head>
 
 <body class="overridden">
-	<div id="darkmode-toggle-container">
-		<div class="darkmode">
-			<div class="light fa-solid fa-sun"></div>
-			<div class="dark fa-regular fa-moon"></div>
-		</div>
-	</div>
 	<div style="position: absolute; right: 25px; top: 0px;">
 		<div style="display: none/*inline-block*/;" class="custom-control custom-switch mr-2">
 			<input type="checkbox" class="custom-control-input" id="TABSVIEW">
@@ -482,6 +476,11 @@ matrix: <code>[[a,b],[c,d]]</code><br>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js" integrity="sha512-f0VlzJbcEB6KiW8ZVtL+5HWPDyW1+nJEjguZ5IVnSQkvZbwBt2RfCBY0CBO1PsMAqxxrG4Di6TfsCPP3ZRwKpA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+	<script>
+	function changeDarkMode(isDarkMode) {
+        document.getElementById("theme").href = isDarkMode ? "assets/darkly.bootstrap.min.css" : "assets/original.bootstrap.min.css";
+    }
+	</script>
 	<script src="assets/theme-switch.js"></script>
 	<!-- -->
 	<script src="https://unpkg.com/@popperjs/core@2"></script>
