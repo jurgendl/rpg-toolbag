@@ -44,5 +44,8 @@
     "> 0.5%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "dependencies": {
+    "mathjs": "^12.2.1"
+  }
 }

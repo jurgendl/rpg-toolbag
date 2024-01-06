@@ -1,6 +1,8 @@
 // npm i --save-dev bootstrap-confirmation2
 // https://www.npmjs.com/package/bootstrap-confirmation2
 
+import { create, all } from 'mathjs'
+
 export class RpgData {
 	SUM_LIST: number[] = [];
 	D_LIST: number[] = [];
@@ -372,12 +374,12 @@ export class Component {
 		});
 
 		this.$SKILL.change((ev: JQuery.Event) => {
-			this.change();
+			this.calculateSuccess();
 			this.saveSkill();
 		});
 
 		this.$SKILL.keyup((ev: JQuery.Event) => {
-			this.change();
+			this.calculateSuccess();
 			this.saveSkill();
 		});
 
@@ -388,6 +390,10 @@ export class Component {
 			}
 		});
 
+		this.$DEGREE_CALC_TYPE.change((ev: JQuery.Event) => {
+			this.calculateSuccess();
+		});
+
 		this.$ROLL.keyup((ev: JQuery.Event) => {
 			if (/*typeof myVar !== 'undefined' &&*/ ev != null && (ev.key === "Enter" || ev.keyCode === 13)) {
 				const ROLL_FIELD_VAL = this.$ROLL.val();
@@ -395,7 +401,7 @@ export class Component {
 					this.rollSet100(Number(ROLL_FIELD_VAL));
 				}
 			} else {
-				this.change();
+				this.calculateSuccess();
 			}
 		});
 
@@ -446,11 +452,13 @@ export class Component {
 		try {
 			let FORMULA = this.$FORMULA.val();
 			if (FORMULA) {
-				//console.log(FORMULA);
+				console.log("FORMULA", FORMULA);
 				FORMULA = FORMULA.toString().replace("x", "*").replace(":", "/").replace("×", "*").replace("÷", "/").replace("+", "+").replace(",", ".");
-				//console.log(FORMULA);
-				const FORMULA_EVAL = eval(FORMULA);
-				//console.log(FORMULA_EVAL);
+				console.log("FORMULA", FORMULA);
+				const config = { }
+				const math = create(all, config)
+				const FORMULA_EVAL = math.evaluate(FORMULA);
+				console.log("FORMULA_EVAL", FORMULA_EVAL);
 				this.$FORMULA_RESULT.text(FORMULA_EVAL);
 			}
 		} catch (err) {
@@ -719,7 +727,7 @@ export class Component {
 
 	rollSet100(rnd: number) {
 		this.clearSum();
-		this.change();
+		this.calculateSuccess();
 		const SKILL = Number(this.$SKILL.val());
 		const SUCCESS = this.$RESULT.val() == SUCCESSTEXT;
 		const DEGREESV = this.$DEGREESV.val();
@@ -762,44 +770,35 @@ export class Component {
 		return Math.floor(Math.random() * Math.floor(max));
 	}
 
-	change() {
+	calculateSuccess() {
 		const SKILL = Number(this.$SKILL.val());
 		const ROLL = Number(this.$ROLL.val());
-		//console.log("ROLL<=SKILL :: " + ROLL + "<=" + SKILL + " :: " + (ROLL <= SKILL));
+		const SUCCESS = ROLL <= SKILL;
+		const BY10 = this.$DEGREE_CALC_TYPE.val() == '(T/10-R/10)';
 		let DEGREESV;
-		let SUCCESS;
-		const by10 = this.$DEGREE_CALC_TYPE.val() == '(T/10-R/10)';
-		if (ROLL <= SKILL) {
-			// success
-			SUCCESS = true;
-			if (by10) {
-				const diff = (Math.floor(SKILL / 10.0) - Math.floor(ROLL / 10.0));
+		if (SUCCESS) {
+			if (BY10) {
+				DEGREESV = (Math.floor(SKILL / 10.0) - Math.floor(ROLL / 10.0));
 				console.log('SKILL', SKILL, SKILL / 10.0, Math.floor(SKILL / 10.0));
 				console.log('ROLL', ROLL, ROLL / 10.0, Math.floor(ROLL / 10.0));
-				console.log('success', diff);
-				DEGREESV = diff;
+				console.log('success :: extra degrees', DEGREESV);
 			} else {
-				const diff = Math.floor((SKILL - ROLL) / 10.0);
+				DEGREESV = Math.floor((SKILL - ROLL) / 10.0);
 				console.log('SKILL', SKILL);
 				console.log('ROLL', ROLL);
-				console.log('success', '(SKILL - ROLL)', (SKILL - ROLL), '(SKILL - ROLL) / 10.0', (SKILL - ROLL) / 10.0, 'Math.floor((SKILL - ROLL) / 10.0))', Math.floor((SKILL - ROLL) / 10.0));
-				DEGREESV = diff;
+				console.log('success :: extra degrees :: (SKILL - ROLL) = ', (SKILL - ROLL), ' :: (SKILL - ROLL) / 10.0 = ', (SKILL - ROLL) / 10.0, ' :: Math.floor((SKILL - ROLL) / 10.0)) = ', Math.floor((SKILL - ROLL) / 10.0));
 			}
 		} else {
-			// fail
-			SUCCESS = false;
-			if (by10) {
-				const diff = (Math.floor(ROLL / 10.0) - Math.floor(SKILL / 10.0));
+			if (BY10) {
+				DEGREESV = (Math.floor(ROLL / 10.0) - Math.floor(SKILL / 10.0));
 				console.log('SKILL', SKILL, SKILL / 10.0, Math.floor(SKILL / 10.0));
 				console.log('ROLL', ROLL, ROLL / 10.0, Math.floor(ROLL / 10.0));
-				console.log('fail', diff);
-				DEGREESV = diff;
+				console.log('fail :: extra degrees', DEGREESV);
 			} else {
-				const diff = Math.floor((ROLL - SKILL - 1) / 10.0);
+				DEGREESV = Math.floor((ROLL - SKILL - 1) / 10.0);
 				console.log('SKILL', SKILL);
 				console.log('ROLL', ROLL);
-				console.log('fail', '(ROLL - SKILL - 1)', (ROLL - SKILL - 1), '(ROLL - SKILL - 1) / 10.0', (ROLL - SKILL - 1) / 10.0, 'Math.floor((ROLL - SKILL - 1) / 10.0))', Math.floor((ROLL - SKILL - 1) / 10.0));
-				DEGREESV = diff;
+				console.log('fail :: extra degrees :: (ROLL - SKILL - 1) = ', (ROLL - SKILL - 1), ' :: (ROLL - SKILL - 1) / 10.0 = ', (ROLL - SKILL - 1) / 10.0, ' :: Math.floor((ROLL - SKILL - 1) / 10.0)) = ', Math.floor((ROLL - SKILL - 1) / 10.0));
 			}
 		}
 		this.$RESULT.val(SUCCESS ? SUCCESSTEXT : FAILTEXT);
