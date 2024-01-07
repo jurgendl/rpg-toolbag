@@ -1,6 +1,7 @@
 /* https://stackoverflow.com/questions/56393880/how-do-i-detect-dark-mode-using-javascript */
 /* https://ultimatecourses.com/blog/detecting-dark-mode-in-javascript */
 /* https://github.com/vinorodrigues/bootstrap-dark-5/blob/main/docs/bootstrap-night.md */
+/* https://vinorodrigues.github.io/bootstrap-dark-5/ */
 
 // !!! requires fontawesome 5/6 !!!
 
