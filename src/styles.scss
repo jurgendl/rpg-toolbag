@@ -228,3 +228,17 @@ body[data-bs-theme="dark"] {
 }*/
 
 /* ------------------------------------------------------ */
+
+.tippy-box {
+	background-color: #b0d7f1;
+	padding: .25em .5em;
+	border-radius: 5px;
+}
+
+body[data-bs-theme="dark"] {
+	.tippy-box {
+		background-color: #0a0a0a;
+	}
+}
+
+/* ------------------------------------------------------ */
